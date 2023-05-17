@@ -10,20 +10,42 @@ namespace TwitterTowers
         static void Main(string[] args)
         {
             int choice; //to save the user choice
-            
+
             do
             {
-                
+
                 DisplayMenu();
                 choice = GetChoice();
 
                 switch (choice)
                 {
                     case 1:
-                        CreateRectangleTower();
+                        try
+                        {
+                            CreateRectangleTower();
+                        }
+                        catch (ArgumentException ae)
+                        {
+                            Console.WriteLine(ae);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                         break;
                     case 2:
-                        CreateTriangleTower();
+                        try
+                        {
+                            CreateTriangleTower();
+                        }
+                        catch (ArgumentException ae)
+                        {
+                            Console.WriteLine(ae);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                        }
                         break;
                     case 3:
                         Console.WriteLine("Exiting the program...");
@@ -36,7 +58,7 @@ namespace TwitterTowers
                 Console.WriteLine();
             }
             while (choice != 3);
-           
+
         }
 
         /// <summary>
@@ -44,7 +66,7 @@ namespace TwitterTowers
         /// </summary>
         static void DisplayMenu()
         {
-            Console.WriteLine("Tower Builder Program");
+            Console.WriteLine("Twitter Towers Program");
             Console.WriteLine("---------------------");
             Console.WriteLine("1. Create a Rectangle Tower");
             Console.WriteLine("2. Create a Triangle Tower");
@@ -104,9 +126,12 @@ namespace TwitterTowers
             Console.WriteLine("Creating a Rectangle Tower");
             Console.WriteLine("---------------------------");
             shape = new Rectangle();
-            shape.Height = InputHeightTower();
-            shape.Width = InputWidthTower();
 
+                shape.Height = InputHeightTower();
+            
+
+            shape.Width = InputWidthTower();
+            Console.WriteLine(' ');
             /*
              I understood from the exercise that 2 things must be checked for area printing:
              1. Is the rectangle a square - the width is equal to the height.
@@ -131,7 +156,7 @@ namespace TwitterTowers
                 double perimeter = shape.CalculatePerimeter();
                 Console.WriteLine($"Rectangle tower's perimeter is: {perimeter}");
             }
-        }
+            }
 
         static void CreateTriangleTower()
         {
@@ -140,6 +165,7 @@ namespace TwitterTowers
             shape = new Triangle();
             shape.Height = InputHeightTower();
             shape.Width = InputWidthTower();
+            Console.WriteLine(' ');
 
             //triangle internal menu:
             Console.WriteLine("Triangle choices:");
