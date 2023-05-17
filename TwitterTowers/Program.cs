@@ -121,15 +121,16 @@ namespace TwitterTowers
             return width;
         }
 
+        /// <summary>
+        /// Function to create rectangle tower
+        /// The user enter height and width and after it the function print or the area or the perimeter.
+        /// </summary>
         static void CreateRectangleTower()
         {
             Console.WriteLine("Creating a Rectangle Tower");
             Console.WriteLine("---------------------------");
             shape = new Rectangle();
-
-                shape.Height = InputHeightTower();
-            
-
+            shape.Height = InputHeightTower();
             shape.Width = InputWidthTower();
             Console.WriteLine(' ');
             /*
@@ -156,8 +157,12 @@ namespace TwitterTowers
                 double perimeter = shape.CalculatePerimeter();
                 Console.WriteLine($"Rectangle tower's perimeter is: {perimeter}");
             }
-            }
+        }
 
+        /// <summary>
+        /// Function to create triangle tower
+        /// The user enter height and width and after it the function print or the perimeter or the triangle in * format.
+        /// </summary>
         static void CreateTriangleTower()
         {
             Console.WriteLine("Creating a Triangle Tower");
@@ -214,10 +219,8 @@ namespace TwitterTowers
                     Console.WriteLine("Invalid choice!");
                     break;
             }
-
             Console.WriteLine();
         }
     }
-
 }
 
