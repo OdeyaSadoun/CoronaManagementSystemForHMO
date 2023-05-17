@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class Rectangle
+    class Rectangle : Shape
     {
+        public override double CalculatePerimeter()
+        {
+            return Height * 2 + Width * 2;
+        }
     }
 }
