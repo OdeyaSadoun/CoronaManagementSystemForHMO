@@ -10,8 +10,10 @@ namespace TwitterTowers
         static void Main(string[] args)
         {
             int choice; //to save the user choice
+            
             do
             {
+                
                 DisplayMenu();
                 choice = GetChoice();
 
@@ -34,6 +36,7 @@ namespace TwitterTowers
                 Console.WriteLine();
             }
             while (choice != 3);
+           
         }
 
         /// <summary>
@@ -56,9 +59,11 @@ namespace TwitterTowers
         /// </returns>
         static int GetChoice()
         {
+            Console.WriteLine("");
             Console.Write("Enter your choice: ");
             int userChoice;
             int.TryParse(Console.ReadLine(), out userChoice);
+            Console.WriteLine("");
             return userChoice;
         }
 
@@ -133,7 +138,6 @@ namespace TwitterTowers
             Console.WriteLine("Creating a Triangle Tower");
             Console.WriteLine("--------------------------");
             shape = new Triangle();
-            //A triangle will always be isosceles.
             shape.Height = InputHeightTower();
             shape.Width = InputWidthTower();
 
