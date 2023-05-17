@@ -9,6 +9,5 @@ namespace Shapes
         public double Width { get; set; }
 
         public abstract double CalculatePerimeter();
-
     }
 }

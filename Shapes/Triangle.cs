@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Shapes
 {
-    class Triangle
+    public class Triangle : Shape
     {
+        public override double CalculatePerimeter()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
