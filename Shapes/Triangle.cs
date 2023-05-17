@@ -8,6 +8,10 @@ namespace Shapes
 {
     public class Triangle : Shape
     {
+        /// <summary>
+        /// Function to calculate the perimeter of triangle
+        /// </summary>
+        /// <returns>Triangle's perimeter</returns>
         public override double CalculatePerimeter()
         {
             throw new NotImplementedException();
