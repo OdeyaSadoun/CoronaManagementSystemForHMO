@@ -74,6 +74,10 @@ namespace TwitterTowers
             Console.Write("Enter the height of the tower: ");
             double height;
             double.TryParse(Console.ReadLine(), out height);
+            /*The following condition is not necessary
+            since it is given in the exercise that a correct input is guaranteed for the height of a tower.*/
+            if (height < 2)
+                throw new ArgumentException("Height must be more or equal to 2");
             return height;
         }
 
@@ -99,8 +103,30 @@ namespace TwitterTowers
             shape.Height = InputHeightTower();
             shape.Width = InputWidthTower();
 
-            // Perform actions specific to creating a rectangular tower
-            Console.WriteLine($"Rectangle Tower created with height: {shape.Height} and width: {shape.Width}");
+            /*
+             I understood from the exercise that 2 things must be checked for area printing:
+             1. Is the rectangle a square - the width is equal to the height.
+             2. Is the difference of the sides of the rectangle greater than 5.
+             For any other case, meaning that it is a rectangle whose side difference is less than 5 but greater than 0
+             (because 0 will be when the rectangle is a square) the perimeter will be printed.
+             */
+            if (Math.Abs(shape.Height - shape.Width) > 5 || shape.Height == shape.Width)
+            {
+                if (shape is Rectangle)
+                {
+                    double area = ((Rectangle)shape).CalculateArea();
+                    Console.WriteLine($"Rectangle tower's area is: {area}");
+                }
+                else
+                {
+                    throw new ArgumentException("For using CalculateArea the shape must be Rectangle type");
+                }
+            }
+            else
+            {
+                double perimeter = shape.CalculatePerimeter();
+                Console.WriteLine($"Rectangle tower's perimeter is: {perimeter}");
+            }
         }
 
         static void CreateTriangleTower()
