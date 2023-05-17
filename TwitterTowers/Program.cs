@@ -12,8 +12,8 @@ namespace TwitterTowers
             int choice; //to save the user choice
             do
             {
-                DisplayMenu(); 
-                choice = GetChoice(); 
+                DisplayMenu();
+                choice = GetChoice();
 
                 switch (choice)
                 {
@@ -43,7 +43,6 @@ namespace TwitterTowers
         {
             Console.WriteLine("Tower Builder Program");
             Console.WriteLine("---------------------");
-            Console.WriteLine("Enter your choice:");
             Console.WriteLine("1. Create a Rectangle Tower");
             Console.WriteLine("2. Create a Triangle Tower");
             Console.WriteLine("3. Exit");
@@ -134,11 +133,59 @@ namespace TwitterTowers
             Console.WriteLine("Creating a Triangle Tower");
             Console.WriteLine("--------------------------");
             shape = new Triangle();
+            //A triangle will always be isosceles.
             shape.Height = InputHeightTower();
             shape.Width = InputWidthTower();
 
-            // Perform actions specific to creating a triangular tower
-            Console.WriteLine($"Triangle Tower created with height: {shape.Height} and base width: {shape.Width}");
+            //triangle internal menu:
+            Console.WriteLine("Triangle choices:");
+            Console.WriteLine("---------------------");
+            Console.WriteLine("1. Calculate the triangle's perimeter");
+            Console.WriteLine("2. Print the triangle");
+
+            int triangleChoice = GetChoice();
+
+            switch (triangleChoice)
+            {
+                case 1:
+                    double perimeter = shape.CalculatePerimeter();
+                    Console.WriteLine($"Triangle tower's perimeter is: {perimeter}");
+                    break;
+                case 2:
+                    /*
+                     From the exercise I understood that printing the triangle is only possible if
+                     the width is shorter than twice the height of the triangle and the width of the triangle is also odd.
+                     Therefore, to the condition of checking whether the printing of the triangle is possible,
+                     I added a check of whether the width is exactly equal to 2 times the height,
+                     because according to my understanding, even with such an option, the triangle cannot be printed.
+                     *
+                     * 
+                     The options where the triangle cannot be printed:
+                     1. The width of the triangle is an even number.
+                     2. Its width is longer OR equal than twice its height.
+                     */
+                    if (shape.Width % 2 == 0 || shape.Width >= shape.Height * 2)
+                    {
+                        Console.WriteLine("The triangle cannot be printed");
+                    }
+                    else
+                    {
+                        if (shape is Triangle)
+                        {
+                            ((Triangle)shape).PrintRectangle();
+                        }
+                        else
+                        {
+                            throw new ArgumentException("For using PrintRectangle the shape must be Triangle type");
+                        }
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice!");
+                    break;
+            }
+
+            Console.WriteLine();
         }
     }
 
