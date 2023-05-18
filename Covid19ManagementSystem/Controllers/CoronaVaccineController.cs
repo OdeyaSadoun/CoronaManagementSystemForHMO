@@ -84,7 +84,6 @@ namespace Covid19ManagementSystem.Controllers
 
         //insert new corona vaccine to database:
         [HttpPost]
-        [HttpPost]
         public ActionResult<CoronaVaccine> InsertCoronaVaccine(CoronaVaccine coronaVaccine)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -94,13 +93,13 @@ namespace Covid19ManagementSystem.Controllers
                 try
                 {
                     // Check if the person already has 4 vaccines:
-                    string countQuery = "SELECT COUNT(*) FROM CoronaVaccine WHERE PersonId = @PersonId";
+                    string countQuery = "SELECT COUNT(*) FROM coronavaccine WHERE PersonId = @PersonId";
                     MySqlCommand countCommand = new MySqlCommand(countQuery, connection);
                     countCommand.Parameters.AddWithValue("@PersonId", coronaVaccine.PersonId);
 
-                    int vaccineCount = Convert.ToInt32(countCommand.ExecuteScalar());
+                    int vaccineCountForPerson = Convert.ToInt32(countCommand.ExecuteScalar());
 
-                    if (vaccineCount >= 4)
+                    if (vaccineCountForPerson >= 4)
                     {
                         // Return a response indicating the maximum limit has been reached (4 vaccines):
                         return BadRequest("Maximum number of vaccines per person reached.");
@@ -127,8 +126,11 @@ namespace Covid19ManagementSystem.Controllers
                 }
                 catch (MySqlException ex)
                 {
-                    //Checking for a correct input of personid that really exists in the person table
-                    //since it is currently a foreign key:
+                    /*
+                     * Checking for a correct input of personid that really exists in the person table
+                     * since it is currently a foreign key:
+                     */
+
                     if (ex.Number == 1452) // MySQL error code for foreign key constraint violation
                     {
                         // PersonId does not exist:
