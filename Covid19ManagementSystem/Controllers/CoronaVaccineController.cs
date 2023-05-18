@@ -93,10 +93,10 @@ namespace Covid19ManagementSystem.Controllers
                 return BadRequest(ModelState);
             }
             // Validate the manufacturer
-            if (coronaVaccine.Manufacturer != "Pfizer" && coronaVaccine.Manufacturer != "Moderna" && coronaVaccine.Manufacturer != "Johnson & Johnson")
+            if (coronaVaccine.Manufacturer != "Pfizer" && coronaVaccine.Manufacturer != "Moderna" && coronaVaccine.Manufacturer != "AstraZeneca" && coronaVaccine.Manufacturer != "Johnson & Johnson")
             {
                 // Return a response indicating an invalid manufacturer
-                return BadRequest("Invalid manufacturer. Allowed values are Pfizer, Moderna, and Johnson & Johnson.");
+                return BadRequest("Invalid manufacturer. Allowed values are Pfizer, Moderna, AstraZeneca and Johnson & Johnson.");
             }
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))

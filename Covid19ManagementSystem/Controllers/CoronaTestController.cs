@@ -249,7 +249,84 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
+        [HttpGet("statistics")]
+        public ActionResult<IEnumerable<CoronaStatistics>> GetCoronaStatistics()
+        {
+            DateTime endDate = DateTime.Today; // Current date
+            DateTime startDate = endDate.AddDays(-29); // 30 days ago
 
+            List<CoronaStatistics> statistics = new List<CoronaStatistics>();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Query to calculate the number of active patients per day within the date range
+                string query = "SELECT DATE(PositiveDate) AS Date, COUNT(*) AS ActivePatients " +
+                               "FROM coronatest " +
+                               "WHERE PositiveDate >= @StartDate AND PositiveDate <= @EndDate " +
+                               "GROUP BY DATE(PositiveDate)";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@StartDate", startDate);
+                command.Parameters.AddWithValue("@EndDate", endDate);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DateTime date = reader.GetDateTime("Date");
+                        int activePatients = reader.GetInt32("ActivePatients");
+
+                        CoronaStatistics stats = new CoronaStatistics
+                        {
+                            Date = date,
+                            ActivePatients = activePatients
+                        };
+
+                        statistics.Add(stats);
+                    }
+                }
+
+                // Fill in missing dates with 0 active patients
+                DateTime currentDate = startDate;
+                while (currentDate <= DateTime.Now.Date)
+                {
+                    if (!statistics.Any(s => s.Date.Date == currentDate.Date))
+                    {
+                        statistics.Add(new CoronaStatistics { Date = currentDate.Date, ActivePatients = 0 });
+                    }
+                    currentDate = currentDate.AddDays(1);
+                }
+
+                // Sort the statistics by date
+                statistics = statistics.OrderBy(s => s.Date).ToList();
+            }
+
+            return Ok(statistics);
+        }
+
+        // Get the number of persons who did not receive any vaccine
+        [HttpGet("unvaccinated")]
+        public ActionResult<int> GetUnvaccinatedPersonsCount()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Query the database to count the number of persons who did not receive any vaccine
+                string query = "SELECT COUNT(*) FROM Person " +
+                               "WHERE PersonId NOT IN (SELECT DISTINCT PersonId FROM CoronaVaccine)";
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                int unvaccinatedCount = Convert.ToInt32(command.ExecuteScalar());
+
+                return unvaccinatedCount;
+            }
+        }
 
     }
+
+   
 }

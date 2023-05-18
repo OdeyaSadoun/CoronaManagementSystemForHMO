@@ -122,6 +122,8 @@ namespace Covid19ManagementSystem.Controllers
                 command.Parameters.AddWithValue("@City", person.City);
                 command.Parameters.AddWithValue("@Street", person.Street);
                 command.Parameters.AddWithValue("@NumberStreet", person.NumberStreet);
+                command.Parameters.AddWithValue("@PersonImage", person.PersonImage);
+
 
                 command.ExecuteNonQuery();
 

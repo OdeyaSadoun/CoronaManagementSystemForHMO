@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS Person (
     MobilePhone VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
     Street VARCHAR(50) NOT NULL,
-    NumberStreet VARCHAR(50) NOT NULL
+    NumberStreet VARCHAR(50) NOT NULL,
+    PersonImage LONGTEXT
 );
 
 
