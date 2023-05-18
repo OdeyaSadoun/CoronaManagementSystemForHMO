@@ -86,19 +86,26 @@ namespace Covid19ManagementSystem.Controllers
         [HttpPost]
         public ActionResult<CoronaVaccine> InsertCoronaVaccine(CoronaVaccine coronaVaccine)
         {
+            // Check if the VaccinationDate is in the future
+            if (coronaVaccine.VaccinationDate > DateTime.Now)
+            {
+                ModelState.AddModelError("VaccinationDate", "Invalid VaccinationDate. Date cannot be in the future.");
+                return BadRequest(ModelState);
+            }
+            // Validate the manufacturer
+            if (coronaVaccine.Manufacturer != "Pfizer" && coronaVaccine.Manufacturer != "Moderna" && coronaVaccine.Manufacturer != "Johnson & Johnson")
+            {
+                // Return a response indicating an invalid manufacturer
+                return BadRequest("Invalid manufacturer. Allowed values are Pfizer, Moderna, and Johnson & Johnson.");
+            }
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
 
                 try
                 {
-                    // Check if the DateOfBirth is in the future
-                    if (coronaVaccine.VaccinationDate > DateTime.Now)
-                    {
-                        ModelState.AddModelError("VaccinationDate", "Invalid VaccinationDate. Date cannot be in the future.");
-                        return BadRequest(ModelState);
-                    }
-
+                   
                     // Check if the person already has 4 vaccines:
                     string countQuery = "SELECT COUNT(*) FROM coronavaccine WHERE PersonId = @PersonId";
                     MySqlCommand countCommand = new MySqlCommand(countQuery, connection);
@@ -112,13 +119,7 @@ namespace Covid19ManagementSystem.Controllers
                         return BadRequest("Maximum number of vaccines per person reached.");
                     }
 
-                    // Validate the manufacturer
-                    if (coronaVaccine.Manufacturer != "Pfizer" && coronaVaccine.Manufacturer != "Moderna" && coronaVaccine.Manufacturer != "Johnson & Johnson")
-                    {
-                        // Return a response indicating an invalid manufacturer
-                        return BadRequest("Invalid manufacturer. Allowed values are Pfizer, Moderna, and Johnson & Johnson.");
-                    }
-
+                   
                     // Insert the CoronaVaccine record
                     string query = "INSERT INTO CoronaVaccine (PersonId, VaccinationDate, Manufacturer) " +
                                    "VALUES (@PersonId, @VaccinationDate, @Manufacturer)";

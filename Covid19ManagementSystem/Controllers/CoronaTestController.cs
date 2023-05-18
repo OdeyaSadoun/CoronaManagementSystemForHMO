@@ -85,6 +85,26 @@ namespace Covid19ManagementSystem.Controllers
         [HttpPost]
         public ActionResult<CoronaTest> InsertCoronaTest(CoronaTest coronaTest)
         {
+            // check that PositiveDate not null
+            if (coronaTest.PositiveDate == null)
+            {
+                return BadRequest("Positive date cannot be null.");
+            }
+
+            //check valid date for PositiveDate
+            if (coronaTest.PositiveDate > DateTime.Now)
+            {
+                ModelState.AddModelError("PositiveDate", "Invalid PositiveDate. Date cannot be in the future.");
+                return BadRequest(ModelState);
+            }
+
+            //check valid date for RecoveryDate
+            if (coronaTest.RecoveryDate > DateTime.Now)
+            {
+                ModelState.AddModelError("RecoveryDate", "Invalid RecoveryDate. Date cannot be in the future.");
+                return BadRequest(ModelState);
+            }
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -92,26 +112,7 @@ namespace Covid19ManagementSystem.Controllers
                
                 try
                 {
-                    // check that PositiveDate not null
-                    if (coronaTest.PositiveDate == null)
-                    {
-                        return BadRequest("Positive date cannot be null.");
-                    }
-
-                    //check valid date for PositiveDate
-                    if (coronaTest.PositiveDate > DateTime.Now)
-                    {
-                        ModelState.AddModelError("PositiveDate", "Invalid PositiveDate. Date cannot be in the future.");
-                        return BadRequest(ModelState);
-                    }
-
-                    //check valid date for RecoveryDate
-                    if (coronaTest.RecoveryDate > DateTime.Now)
-                    {
-                        ModelState.AddModelError("RecoveryDate", "Invalid RecoveryDate. Date cannot be in the future.");
-                        return BadRequest(ModelState);
-                    }
-
+                    
                     // Check if the person already had positive corona test:
                     string countQuery = "SELECT COUNT(*) FROM coronatest WHERE PersonId = @PersonId";
                     MySqlCommand countCommand = new MySqlCommand(countQuery, connection);

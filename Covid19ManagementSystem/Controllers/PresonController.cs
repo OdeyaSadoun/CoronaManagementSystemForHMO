@@ -12,6 +12,7 @@ namespace Covid19ManagementSystem.Controllers
     {
         private readonly string connectionString = "Server=localhost;Port=3306;Database=coronadatabase;Uid=root;Pwd=password;";
 
+        //get all persons:
         [HttpGet]
         public ActionResult<IEnumerable<Person>> GetAllPersons()
         {
@@ -51,9 +52,58 @@ namespace Covid19ManagementSystem.Controllers
             return Ok(persons);
         }
 
+        //get person by id:
+        [HttpGet("{id}")]
+        public ActionResult<Person> GetPersonById(int id)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM person WHERE PersonId = @PersonId";
+
+                connection.Open();
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PersonId", id);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        Person person = new Person
+                        {
+                            PersonId = reader.GetInt32("PersonId"),
+                            FirstName = reader.GetString("FirstName"),
+                            LastName = reader.GetString("LastName"),
+                            ID = reader.GetString("ID"),
+                            DateOfBirth = reader.GetDateTime("DateOfBirth"),
+                            Telephone = reader.GetString("Telephone"),
+                            MobilePhone = reader.GetString("MobilePhone"),
+                            City = reader.GetString("City"),
+                            Street = reader.GetString("Street"),
+                            NumberStreet = reader.GetString("NumberStreet")
+                        };
+
+                        return Ok(person);
+                    }
+                    else
+                    {
+                        return NotFound(); // Return 404 Not Found if the record with the specified ID is not found
+                    }
+                }
+            }
+        }
+
+        //insert new persont to database
         [HttpPost]
         public ActionResult<Person> InsertPerson(Person person)
         {
+            // Check if the DateOfBirth is in the future
+            if (person.DateOfBirth > DateTime.Now)
+            {
+                ModelState.AddModelError("DateOfBirth", "Invalid DateOfBirth. Date cannot be in the future.");
+                return BadRequest(ModelState);
+            }
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             { 
                 string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
