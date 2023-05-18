@@ -55,15 +55,14 @@ namespace Covid19ManagementSystem.Controllers
         public ActionResult<Person> InsertPerson(Person person)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                string query = "INSERT INTO Person (PersonId, FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
-                               "VALUES (@PersonId, @FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
+            { 
+                string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
+                       "VALUES (@FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
 
                 connection.Open();
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
-                command.Parameters.AddWithValue("@PersonId", person.PersonId);
                 command.Parameters.AddWithValue("@FirstName", person.FirstName);
                 command.Parameters.AddWithValue("@LastName", person.LastName);
                 command.Parameters.AddWithValue("@ID", person.ID);
@@ -75,6 +74,12 @@ namespace Covid19ManagementSystem.Controllers
                 command.Parameters.AddWithValue("@NumberStreet", person.NumberStreet);
 
                 command.ExecuteNonQuery();
+
+                // Retrieve the auto-generated PersonId
+                int generatedId = (int)command.LastInsertedId;
+
+                // Assign the generated PersonId to the Person object
+                person.PersonId = generatedId;
             }
 
             return CreatedAtAction(nameof(GetAllPersons), new { id = person.PersonId }, person);

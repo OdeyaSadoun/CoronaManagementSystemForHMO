@@ -27,10 +27,6 @@ namespace Covid19ManagementSystem.Models
         public string ID { get; set; }
 
         [Required]
-        [ForeignKey("Address")]
-        public int AddressId { get; set; }
-
-        [Required]
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
         public DateTime DateOfBirth { get; set; }
