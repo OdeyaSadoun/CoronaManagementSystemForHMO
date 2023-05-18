@@ -34,7 +34,7 @@ namespace Covid19ManagementSystem.Controllers
                         {
                             TestId = reader.GetInt32("TestId"),
                             PersonId = reader.GetInt32("PersonId"),
-                            PositiveDate = reader.IsDBNull(reader.GetOrdinal("PositiveDate")) ? null : reader.GetDateTime("PositiveDate"),
+                            PositiveDate = reader.GetDateTime("PositiveDate"),
                             RecoveryDate = reader.IsDBNull(reader.GetOrdinal("RecoveryDate")) ? null : reader.GetDateTime("RecoveryDate")
                         };
 
@@ -67,7 +67,7 @@ namespace Covid19ManagementSystem.Controllers
                         {
                             TestId = reader.GetInt32("TestId"),
                             PersonId = reader.GetInt32("PersonId"),
-                            PositiveDate = reader.IsDBNull(reader.GetOrdinal("PositiveDate")) ? null : reader.GetDateTime("PositiveDate"),
+                            PositiveDate = reader.GetDateTime("PositiveDate"),
                             RecoveryDate = reader.IsDBNull(reader.GetOrdinal("RecoveryDate")) ? null : reader.GetDateTime("RecoveryDate")
                         };
 
@@ -92,6 +92,26 @@ namespace Covid19ManagementSystem.Controllers
                
                 try
                 {
+                    // check that PositiveDate not null
+                    if (coronaTest.PositiveDate == null)
+                    {
+                        return BadRequest("Positive date cannot be null.");
+                    }
+
+                    //check valid date for PositiveDate
+                    if (coronaTest.PositiveDate > DateTime.Now)
+                    {
+                        ModelState.AddModelError("PositiveDate", "Invalid PositiveDate. Date cannot be in the future.");
+                        return BadRequest(ModelState);
+                    }
+
+                    //check valid date for RecoveryDate
+                    if (coronaTest.RecoveryDate > DateTime.Now)
+                    {
+                        ModelState.AddModelError("RecoveryDate", "Invalid RecoveryDate. Date cannot be in the future.");
+                        return BadRequest(ModelState);
+                    }
+
                     // Check if the person already had positive corona test:
                     string countQuery = "SELECT COUNT(*) FROM coronatest WHERE PersonId = @PersonId";
                     MySqlCommand countCommand = new MySqlCommand(countQuery, connection);
@@ -150,5 +170,85 @@ namespace Covid19ManagementSystem.Controllers
                 return CreatedAtAction(nameof(GetAllCoronaTests), new { id = coronaTest.TestId }, coronaTest);
             }
         }
+
+        // Update the RecoveryDate for a specific person's corona test
+        [HttpPatch("{personId}/recoverydate")]
+        public ActionResult UpdateRecoveryDate(int personId, [FromBody] DateTime recoveryDate)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+              
+                // Check if the corona test exists for the person
+                string checkQuery = "SELECT COUNT(*) FROM coronatest WHERE PersonId = @PersonId";
+                MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection);
+                checkCommand.Parameters.AddWithValue("@PersonId", personId);
+
+                int testCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                if (testCount == 0)
+                {
+                    return NotFound(); // Return 404 Not Found if the corona test for the person is not found
+                }
+
+                // Retrieve the existing RecoveryDate for the current person
+                string existingRecoveryDateQuery = "SELECT RecoveryDate FROM coronatest WHERE PersonId = @PersonId";
+                MySqlCommand existingRecoveryDateCommand = new MySqlCommand(existingRecoveryDateQuery, connection);
+                existingRecoveryDateCommand.Parameters.AddWithValue("@PersonId", personId);
+
+                using (MySqlDataReader reader = existingRecoveryDateCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        //update anable when the value in RecoveryDate is null
+                        DateTime? existingRecoveryDate = reader.IsDBNull(0) ? null : reader.GetDateTime(0);
+
+                        if (existingRecoveryDate != null)
+                        {
+                            return BadRequest("RecoveryDate cannot be updated because it is already set."); // Return 400 Bad Request if the existing RecoveryDate is not null
+                        }
+                    }
+                    else
+                    {
+                        return NotFound(); // Return 404 Not Found if the existing RecoveryDate for the person is not found
+                    }
+                }
+
+                // Retrieve the PositiveDate for the person for check valid RecoveryDate
+                string positiveDateQuery = "SELECT PositiveDate FROM coronatest WHERE PersonId = @PersonId";
+                MySqlCommand positiveDateCommand = new MySqlCommand(positiveDateQuery, connection);
+                positiveDateCommand.Parameters.AddWithValue("@PersonId", personId);
+
+                using (MySqlDataReader reader = positiveDateCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        DateTime positiveDate = reader.GetDateTime(0);
+
+                        if (recoveryDate <= positiveDate)
+                        {
+                            return BadRequest("RecoveryDate must be later than the PositiveDate."); // Return 400 Bad Request if recoveryDate is not later than positiveDate
+                        }
+                    }
+                    else
+                    {
+                        return NotFound(); // Return 404 Not Found if the positiveDate for the person is not found
+                    }
+                }
+
+                // Update the RecoveryDate
+                string updateQuery = "UPDATE coronatest SET RecoveryDate = @RecoveryDate WHERE PersonId = @PersonId";
+                MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection);
+                updateCommand.Parameters.AddWithValue("@RecoveryDate", recoveryDate);
+                updateCommand.Parameters.AddWithValue("@PersonId", personId);
+
+                updateCommand.ExecuteNonQuery();
+
+                return NoContent(); // Return 204 No Content to indicate successful update
+            }
+        }
+
+
+
     }
 }
