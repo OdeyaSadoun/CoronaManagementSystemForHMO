@@ -19,7 +19,7 @@ namespace Covid19ManagementSystem.Models
 
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
-        public DateTime? PositiveDate { get; set; }
+        public DateTime PositiveDate { get; set; }
 
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]

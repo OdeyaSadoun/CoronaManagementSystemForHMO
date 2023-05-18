@@ -23,7 +23,7 @@ namespace Covid19ManagementSystem.Models
         public DateTime VaccinationDate { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(50")]
+        [Column(TypeName = "varchar(50)")]
         public string Manufacturer { get; set; }
 
     }

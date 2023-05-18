@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Person (
 CREATE TABLE IF NOT EXISTS CoronaTest (
     TestId INT AUTO_INCREMENT PRIMARY KEY,
     PersonId INT NOT NULL,
-    PositiveDate DATE,
+    PositiveDate DATE NOT NULL,
     RecoveryDate DATE,
     FOREIGN KEY (PersonId) REFERENCES Person(PersonId)
 );
