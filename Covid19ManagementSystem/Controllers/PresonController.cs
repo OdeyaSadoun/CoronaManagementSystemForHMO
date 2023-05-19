@@ -97,9 +97,8 @@ namespace Covid19ManagementSystem.Controllers
 
         //insert new persont to database
         [HttpPost]
-        public ActionResult<Person> InsertPerson([FromBody] Person person)
+        public ActionResult<Person> InsertPerson(Person person)
         {
-
             // Check if the DateOfBirth is in the future
             if (person.DateOfBirth > DateTime.Now)
             {
@@ -126,7 +125,7 @@ namespace Covid19ManagementSystem.Controllers
                         command.Parameters.AddWithValue("@City", person.City);
                         command.Parameters.AddWithValue("@Street", person.Street);
                         command.Parameters.AddWithValue("@NumberStreet", person.NumberStreet);
-                        command.Parameters.AddWithValue("@PersonImage", person.PersonImage);
+                        //command.Parameters.AddWithValue("@PersonImage", person.PersonImage);
 
 
                         command.ExecuteNonQuery();
@@ -147,6 +146,25 @@ namespace Covid19ManagementSystem.Controllers
                 return StatusCode(500, "An error occurred while inserting the person.");
             }
         }
-
+        //[HttpPost]
+        //public IActionResult SubmitVaccine(CoronaVaccine vaccine)
+        //{
+        //    // Call the CoronaVaccineController API to insert the vaccine
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        string apiUrl = "https://localhost:5004/api/CoronaVaccine";
+        //        var response = client.PostAsJsonAsync(apiUrl, vaccine).Result;
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            // Vaccine added successfully
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //            // Handle the error case
+        //            return BadRequest("Failed to add the vaccine.");
+        //        }
+        //    }
+        //}
     }
 }

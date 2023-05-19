@@ -7,6 +7,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Date of Birth</th>
+        <th>Phone</th>
         <th>Actions</th>
     </tr>
     @foreach (var person in Model)
@@ -15,9 +16,11 @@
             <td>@person.ID</td>
             <td>@person.FirstName @person.LastName</td>
             <td>@person.DateOfBirth.ToShortDateString()</td>
+            <td>@person.MobilePhone</td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = person.PersonId }) |
-                @Html.ActionLink("Edit", "Edit", new { id = person.PersonId })
+                @Html.ActionLink("AddVaccine", "AddVaccine", new { id = person.PersonId })|
+                @Html.ActionLink("AddPositiveTest", "AddPositiveTest", new { id = person.PersonId })
             </td>
         </tr>
     }

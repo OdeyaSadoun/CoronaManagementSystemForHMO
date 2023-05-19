@@ -29,4 +29,5 @@
     </tr>
 </table>
 
-@Html.ActionLink("Edit", "Edit", new { id = Model.PersonId })
+@Html.ActionLink("AddVaccine", "AddVaccine", new { id = @Model.PersonId })|
+@Html.ActionLink("AddPositiveTest", "AddPositiveTest", new { id = @Model.PersonId })

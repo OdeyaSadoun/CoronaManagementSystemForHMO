@@ -1,0 +1,23 @@
+﻿@model int
+
+<h1>Add Vaccine</h1>
+
+<form method="post" asp-action="AddVaccine">
+    <input type="hidden" name="personId" value="@ViewBag.PersonId" />
+
+    <div class="form-group">
+        <label for="vaccinationDate">Vaccination Date:</label>
+        <input type="date" class="form-control" name="vaccinationDate" required />
+    </div>
+
+    <div class="form-group">
+        <label for="manufacturer">Manufacturer:</label>
+        <select class="form-control" name="manufacturer" required>
+            <option value="Pfizer">Pfizer</option>
+            <option value="Moderna">Moderna</option>
+            <option value="Johnson & Johnson">Johnson & Johnson</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

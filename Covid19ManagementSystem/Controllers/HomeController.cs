@@ -17,7 +17,7 @@ namespace Covid19ManagementSystem.Controllers
 
         public IActionResult HmoMembers()
         {
-            return View();
+            return RedirectToAction("Index", "PersonMVC");
         }
 
         public IActionResult Statistics()

@@ -43,7 +43,9 @@ namespace Covid19ManagementSystem
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers(); // Make sure this line is present
             });
+
         }
     }
 }
