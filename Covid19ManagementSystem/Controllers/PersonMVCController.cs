@@ -60,9 +60,13 @@ namespace Covid19ManagementSystem.Controllers
         }
 
 
-        public IActionResult AddVaccine(int id)
+        public IActionResult AddVaccine()
         {
             return RedirectToAction("AddVaccine", "CoronaVaccineMVC");
+        }
+        public IActionResult AddPositiveTest()
+        {
+            return RedirectToAction("AddPositiveTest", "CoronaTestMVC");
         }
     }
 

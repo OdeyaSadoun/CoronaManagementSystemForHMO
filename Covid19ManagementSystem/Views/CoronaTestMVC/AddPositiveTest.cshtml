@@ -1,0 +1,14 @@
+﻿@model int
+
+<h1>Add Positive Test</h1>
+
+<form method="post" asp-action="AddPositiveTest">
+    <input type="hidden" name="personId" value="@ViewBag.PersonId" />
+
+    <div class="form-group">
+        <label for="positiveTestDate">Positive Test Date:</label>
+        <input type="date" class="form-control" name="positiveTestDate" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
