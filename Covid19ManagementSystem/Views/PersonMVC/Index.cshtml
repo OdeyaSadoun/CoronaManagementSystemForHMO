@@ -1,0 +1,24 @@
+﻿@model List<Covid19ManagementSystem.Models.Person>
+
+<h1>Person List</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date of Birth</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var person in Model)
+    {
+        <tr>
+            <td>@person.ID</td>
+            <td>@person.FirstName @person.LastName</td>
+            <td>@person.DateOfBirth.ToShortDateString()</td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = person.PersonId }) |
+                @Html.ActionLink("Edit", "Edit", new { id = person.PersonId })
+            </td>
+        </tr>
+    }
+</table>

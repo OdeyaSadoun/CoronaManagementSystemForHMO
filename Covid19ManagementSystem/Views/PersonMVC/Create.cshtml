@@ -2,7 +2,7 @@
 
 <h2>Add Member Page</h2>
 
-<form id="add-member-form" method="post" action="">
+<form id="add-member-form" method="post" action="/PersonMVC/Create">
     <div>
         <label for="FirstName">First Name:</label>
         <input type="text" id="FirstName" name="FirstName" required>
@@ -55,41 +55,3 @@
 
     <button type="submit" value="Add Member">Add Member</button>
 </form>
-@section Scripts {
-    <script>
-        $(function () {
-            $('#add-member-form').submit(function (e) {
-                e.preventDefault();
-
-                // Create an object to hold the form data
-                var formData = {
-                    FirstName: $('#FirstName').val(),
-                    LastName: $('#LastName').val(),
-                    ID: $('#ID').val(),
-                    BirthDate: $('#BirthDate').val(),
-                    Telephone: $('#Telephone').val(),
-                    MobilePhone: $('#MobilePhone').val(),
-                    City: $('#City').val(),
-                    Street: $('#Street').val(),
-                    NumberStreet: $('#NumberStreet').val(),
-                    ImageFile: $('#ImageFile').val(),
-                    // Add other form field values
-                };
-
-                // Send the JSON data to the InsertPerson action
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/Person/InsertPerson',
-                    data: JSON.stringify(formData),
-                    contentType: 'application/json',
-                    success: function () {
-                        // Handle success response
-                    },
-                    error: function () {
-                        // Handle error response
-                    }
-                });
-            });
-        });
-    </script>
-    }}
