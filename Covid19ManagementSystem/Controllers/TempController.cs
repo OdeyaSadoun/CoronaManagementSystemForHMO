@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace Covid19ManagementSystem.Controllers
 {
-    public class PersonMVCController : Controller
+    public class TempController : Controller
     {
         private readonly string connectionString = "Server=localhost;Port=3306;Database=coronadatabase;Uid=root;Pwd=password;";
 
