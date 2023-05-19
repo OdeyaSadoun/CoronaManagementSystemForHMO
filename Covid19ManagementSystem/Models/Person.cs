@@ -51,9 +51,11 @@ namespace Covid19ManagementSystem.Models
         [Column(TypeName = "varchar(50)")]
         public string NumberStreet { get; set; }
 
-        [Required]
         [Column(TypeName = "varchar(max)")]
         public string? PersonImage { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
+
     }
 
 }

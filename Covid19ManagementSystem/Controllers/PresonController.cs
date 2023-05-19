@@ -4,6 +4,7 @@ using Covid19ManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 
+
 namespace Covid19ManagementSystem.Controllers
 {
     [Route("api/[controller]")]
@@ -11,6 +12,7 @@ namespace Covid19ManagementSystem.Controllers
     public class PersonController : ControllerBase
     {
         private readonly string connectionString = "Server=localhost;Port=3306;Database=coronadatabase;Uid=root;Pwd=password;";
+
 
         //get all persons:
         [HttpGet]
@@ -97,45 +99,54 @@ namespace Covid19ManagementSystem.Controllers
         [HttpPost]
         public ActionResult<Person> InsertPerson(Person person)
         {
+
             // Check if the DateOfBirth is in the future
             if (person.DateOfBirth > DateTime.Now)
             {
                 ModelState.AddModelError("DateOfBirth", "Invalid DateOfBirth. Date cannot be in the future.");
                 return BadRequest(ModelState);
             }
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
+                           "VALUES (@FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            { 
-                string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
-                       "VALUES (@FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
+                    connection.Open();
 
-                connection.Open();
-
-                MySqlCommand command = new MySqlCommand(query, connection);
-
-                command.Parameters.AddWithValue("@FirstName", person.FirstName);
-                command.Parameters.AddWithValue("@LastName", person.LastName);
-                command.Parameters.AddWithValue("@ID", person.ID);
-                command.Parameters.AddWithValue("@DateOfBirth", person.DateOfBirth);
-                command.Parameters.AddWithValue("@Telephone", person.Telephone);
-                command.Parameters.AddWithValue("@MobilePhone", person.MobilePhone);
-                command.Parameters.AddWithValue("@City", person.City);
-                command.Parameters.AddWithValue("@Street", person.Street);
-                command.Parameters.AddWithValue("@NumberStreet", person.NumberStreet);
-                command.Parameters.AddWithValue("@PersonImage", person.PersonImage);
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@FirstName", person.FirstName);
+                        command.Parameters.AddWithValue("@LastName", person.LastName);
+                        command.Parameters.AddWithValue("@ID", person.ID);
+                        command.Parameters.AddWithValue("@DateOfBirth", person.DateOfBirth);
+                        command.Parameters.AddWithValue("@Telephone", person.Telephone);
+                        command.Parameters.AddWithValue("@MobilePhone", person.MobilePhone);
+                        command.Parameters.AddWithValue("@City", person.City);
+                        command.Parameters.AddWithValue("@Street", person.Street);
+                        command.Parameters.AddWithValue("@NumberStreet", person.NumberStreet);
+                        command.Parameters.AddWithValue("@PersonImage", person.PersonImage);
 
 
-                command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
 
-                // Retrieve the auto-generated PersonId
-                int generatedId = (int)command.LastInsertedId;
+                        // Retrieve the auto-generated PersonId
+                        int generatedId = (int)command.LastInsertedId;
 
-                // Assign the generated PersonId to the Person object
-                person.PersonId = generatedId;
+                        // Assign the generated PersonId to the Person object
+                        person.PersonId = generatedId;
+                    }
+                }
+
+                return CreatedAtAction(nameof(GetAllPersons), new { id = person.PersonId }, person);
             }
-
-            return CreatedAtAction(nameof(GetAllPersons), new { id = person.PersonId }, person);
+            catch (Exception ex)
+            {
+                // Handle the exception appropriately (e.g., log the error, return a specific error response)
+                return StatusCode(500, "An error occurred while inserting the person.");
+            }
         }
-    }
 
+    }
 }
