@@ -64,10 +64,66 @@ namespace Covid19ManagementSystem.Controllers
         {
             return RedirectToAction("AddVaccine", "CoronaVaccineMVC");
         }
+
         public IActionResult AddPositiveTest()
         {
             return RedirectToAction("AddPositiveTest", "CoronaTestMVC");
         }
+
+        public IActionResult Details(int id)
+        {
+            ViewBag.PersonId = id;
+            Person currentPerson = FindPerson(id);
+            ViewBag.FirstName = currentPerson.FirstName;
+            ViewBag.LastName = currentPerson.LastName;
+            ViewBag.DateOfBirth = currentPerson.DateOfBirth;
+            ViewBag.Telephone = currentPerson.Telephone;
+            ViewBag.MobilePhone = currentPerson.MobilePhone;
+            ViewBag.NumberStreet = currentPerson.NumberStreet;
+            ViewBag.Street = currentPerson.Street;
+            ViewBag.City = currentPerson.Street;
+
+            return View();
+        }
+
+
+        public Person FindPerson(int id)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Person WHERE PersonId = @PersonId";
+
+                connection.Open();
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PersonId", id);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        Person person = new Person
+                        {
+                            PersonId = reader.GetInt32("PersonId"),
+                            FirstName = reader.GetString("FirstName"),
+                            LastName = reader.GetString("LastName"),
+                            ID = reader.GetString("ID"),
+                            DateOfBirth = reader.GetDateTime("DateOfBirth"),
+                            Telephone = reader.GetString("Telephone"),
+                            MobilePhone = reader.GetString("MobilePhone"),
+                            City = reader.GetString("City"),
+                            Street = reader.GetString("Street"),
+                            NumberStreet = reader.GetString("NumberStreet")
+                        };
+
+                        return person;
+                    }
+                }
+            }
+
+            return null; // Return 404 Not Found if the person with the specified ID is not found
+        }
+
     }
 
 
