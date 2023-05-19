@@ -97,7 +97,7 @@ namespace Covid19ManagementSystem.Controllers
 
         //insert new persont to database
         [HttpPost]
-        public ActionResult<Person> InsertPerson(Person person)
+        public ActionResult<Person> InsertPerson([FromBody] Person person)
         {
 
             // Check if the DateOfBirth is in the future
