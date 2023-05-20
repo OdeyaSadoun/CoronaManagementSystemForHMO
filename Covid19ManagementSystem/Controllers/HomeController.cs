@@ -10,14 +10,19 @@ namespace Covid19ManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult AddMember()
+        public IActionResult AddPerson()
         {
-            return View("~/Views/Person/AddMember.cshtml");
+            return View("~/Views/Person/AddPerson.cshtml");
         }
 
-        public IActionResult HmoMembers()
+        public IActionResult PersonDetails(int id)
         {
-            return RedirectToAction("Index", "PersonMVC");
+            return View("~/Views/Person/Details.cshtml", id);
+        }
+
+        public IActionResult HmoPersons()
+        {
+            return View("~/Views/Person/GetAllPersons.cshtml");
         }
 
         public IActionResult Statistics()

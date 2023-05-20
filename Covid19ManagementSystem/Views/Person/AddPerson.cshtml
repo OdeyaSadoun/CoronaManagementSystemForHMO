@@ -2,13 +2,45 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add Member Page</title>
+    <title>Add Person</title>
+    <link rel="stylesheet" href="~/css/styles.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function insertPerson() {
+            // Get the form data from ui form
+            var formData = {
+                FirstName: $('#FirstName').val(),
+                LastName: $('#LastName').val(),
+                ID: $('#ID').val(),
+                DateOfBirth: $('#BirthDate').val(),
+                Telephone: $('#Telephone').val(),
+                MobilePhone: $('#MobilePhone').val(),
+                City: $('#City').val(),
+                Street: $('#Street').val(),
+                NumberStreet: $('#NumberStreet').val()
+            };
+
+            // Send a POST request to the API 
+            $.ajax({
+                url: '/api/Person',
+                type: 'POST',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function (data) {                   
+                    alert('Person added successfully');
+                    // Reset the form
+                    $('#addPersonForm')[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred while adding the person');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
-    <h2>Add Member Page</h2>
-
-    <form id="add-member-form" onsubmit="event.preventDefault(); insertPerson();">
+    <h2>Add Person</h2>
+    <form id="addPersonForm" onsubmit="event.preventDefault(); insertPerson();">
         <div>
             <label for="FirstName">First Name:</label>
             <input type="text" id="FirstName" name="FirstName" required>
@@ -50,7 +82,7 @@
         </div>
 
         <div>
-            <label for="NumberStreet">Number Street:</label>
+            <label for="NumberStreet">Number House:</label>
             <input type="text" id="NumberStreet" name="NumberStreet" pattern="[0-9]+" required>
         </div>
 
@@ -59,43 +91,7 @@
             <input type="file" id="ImageFile" name="ImageFile">
         </div>
 
-        <button type="submit" value="Add Member">Add Member</button>
+        <button type="submit" value="Add Person">Add Person</button>
     </form>
-
-    <script>
-        function insertPerson() {
-            // Get the form data
-            var formData = {
-                FirstName: $('#FirstName').val(),
-                LastName: $('#LastName').val(),
-                ID: $('#ID').val(),
-                DateOfBirth: $('#BirthDate').val(),
-                Telephone: $('#Telephone').val(),
-                MobilePhone: $('#MobilePhone').val(),
-                City: $('#City').val(),
-                Street: $('#Street').val(),
-                NumberStreet: $('#NumberStreet').val()
-            };
-
-            // Send a POST request to the API endpoint
-            $.ajax({
-                url: '/api/Person',
-                type: 'POST',
-                data: JSON.stringify(formData),
-                contentType: 'application/json',
-                success: function (data) {
-                    // Handle the successful response, for example, display a success message
-                    alert('Person added successfully');
-                    // Reset the form
-                    $('#add-member-form')[0].reset();
-                },
-                error: function (xhr, status, error) {
-                    // Handle the error response, for example, display an error message
-                    alert('An error occurred while adding the person');
-                }
-            });
-
-        }
-    </script>
 </body>
 </html>

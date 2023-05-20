@@ -1,23 +1,32 @@
 ﻿@model int
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Vaccine</title>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+</head>
+<body>
+    <h1>Add Vaccine</h1>
 
-<h1>Add Vaccine</h1>
+    <form id="AddVaccineForm" method="post" asp-action="AddVaccine">
+        <input type="hidden" name="personId" value="@ViewBag.PersonId" />
 
-<form method="post" asp-action="AddVaccine">
-    <input type="hidden" name="personId" value="@ViewBag.PersonId" />
+        <div>
+            <label for="vaccinationDate">Vaccination Date:</label>
+            <input type="date" name="vaccinationDate" required />
+        </div>
 
-    <div class="form-group">
-        <label for="vaccinationDate">Vaccination Date:</label>
-        <input type="date" class="form-control" name="vaccinationDate" required />
-    </div>
+        <div>
+            <label for="manufacturer">Manufacturer:</label>
+            <select name="manufacturer" required>
+                <option value="Pfizer">Pfizer</option>
+                <option value="Moderna">Moderna</option>
+                <option value="Johnson & Johnson">Johnson & Johnson</option>
+                <option value="AstraZeneca">AstraZeneca</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label for="manufacturer">Manufacturer:</label>
-        <select class="form-control" name="manufacturer" required>
-            <option value="Pfizer">Pfizer</option>
-            <option value="Moderna">Moderna</option>
-            <option value="Johnson & Johnson">Johnson & Johnson</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</body>
+</html>

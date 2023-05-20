@@ -1,33 +1,73 @@
-﻿@model Covid19ManagementSystem.Models.Person
+﻿@model int
 
-<h1>Person Details</h1>
-
-<table>
-    <tr>
-        <th>ID</th>
-        <td>@ViewBag.PersonId</td>
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td>@ViewBag.FirstName @ViewBag.LastName</td>
-    </tr>
-    <tr>
-        <th>Date of Birth</th>
-        <td>@ViewBag.DateOfBirth.ToShortDateString()</td>
-    </tr>
-    <tr>
-        <th>Telephone</th>
-        <td>@ViewBag.Telephone</td>
-    </tr>
-    <tr>
-        <th>Mobile Phone</th>
-        <td>@ViewBag.MobilePhone</td>
-    </tr>
-    <tr>
-        <th>Address</th>
-        <td>@ViewBag.NumberStreet, @ViewBag.Street, @ViewBag.City</td>
-    </tr>
-</table>
-
-@Html.ActionLink("AddVaccine", "AddVaccine", new { id = @ViewBag.PersonId })|
-@Html.ActionLink("AddPositiveTest", "AddPositiveTest", new { id = @ViewBag.PersonId })
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Details</title>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <script>
+        // Send a GET request to the API 
+        fetch(`/api/Person/@Model`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('An error occurred while fetching the person details.');
+                }
+                return response.json();
+            })
+            .then(person => {
+                const personDetailsContainer = document.getElementById('personDetailsContainer');
+                personDetailsContainer.innerHTML = `
+                            <table>
+                                <tr>
+                                    <th>Person ID:</th>
+                                    <td>${person.personId}</td>
+                                </tr>
+                                <tr>
+                                    <th>First Name:</th>
+                                    <td>${person.firstName}</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Name:</th>
+                                    <td>${person.lastName}</td>
+                                </tr>
+                                <tr>
+                                    <th>ID:</th>
+                                    <td>${person.id}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date of Birth:</th>
+                                    <td>${new Date(person.dateOfBirth).toLocaleDateString()}</td>
+                                </tr>
+                                <tr>
+                                    <th>Telephone:</th>
+                                    <td>${person.telephone}</td>
+                                </tr>
+                                <tr>
+                                    <th>Mobile Phone:</th>
+                                    <td>${person.mobilePhone}</td>
+                                </tr>
+                                <tr>
+                                    <th>City:</th>
+                                    <td>${person.city}</td>
+                                </tr>
+                                <tr>
+                                    <th>Street:</th>
+                                    <td>${person.street}</td>
+                                </tr>
+                                <tr>
+                                    <th>Number of Street:</th>
+                                    <td>${person.numberStreet}</td>
+                                </tr>
+                            </table>
+                        `;
+            })
+            .catch(error => {
+                console.error('An error occurred while fetching the person details:', error);
+            });
+    </script>
+</head>
+<body>
+    <h1>Person Details</h1>
+    <div id="personDetailsContainer"></div>
+</body>
+</html>

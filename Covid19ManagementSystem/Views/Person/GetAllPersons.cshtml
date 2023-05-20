@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Persons List</title>
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <script>
+        // Send a GET request to the API
+        fetch('/api/Person')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('An error occurred while fetching the person data.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Iterate over the received data and update the table for all the persons from the database
+                data.forEach(person => {
+                    var tableRow = document.createElement('tr');
+                    tableRow.innerHTML = `
+                                        <td>${person.id}</td>
+                                        <td>${person.firstName} ${person.lastName}</td>
+                                        <td>${new Date(person.dateOfBirth).toLocaleDateString()}</td>
+                                        <td>${person.mobilePhone}</td>
+                                        <td><a href="/Home/PersonDetails?id=${person.personId}">Details</a></td>
+                                    `;
+                    document.getElementById('personsTable').appendChild(tableRow);
+                });
+            })
+            .catch(error => {
+                console.error('An error occurred while fetching the person data:', error);
+            });
+    </script>
+</head>
+<body>
+    <h1>Persons List</h1>
+    <table id="personsTable">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+</body>
+</html>

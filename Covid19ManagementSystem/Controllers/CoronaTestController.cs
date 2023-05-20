@@ -327,6 +327,5 @@ namespace Covid19ManagementSystem.Controllers
         }
 
     }
-
    
 }
