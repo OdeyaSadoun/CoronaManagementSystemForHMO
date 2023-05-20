@@ -12,7 +12,7 @@ namespace Covid19ManagementSystem.Controllers
 
         public IActionResult AddMember()
         {
-            return RedirectToAction("AddMember", "PersonMVC");
+            return View("~/Views/Person/AddMember.cshtml");
         }
 
         public IActionResult HmoMembers()

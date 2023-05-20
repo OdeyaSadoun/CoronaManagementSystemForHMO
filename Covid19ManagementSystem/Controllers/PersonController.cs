@@ -146,25 +146,6 @@ namespace Covid19ManagementSystem.Controllers
                 return StatusCode(500, "An error occurred while inserting the person.");
             }
         }
-        //[HttpPost]
-        //public IActionResult SubmitVaccine(CoronaVaccine vaccine)
-        //{
-        //    // Call the CoronaVaccineController API to insert the vaccine
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        string apiUrl = "https://localhost:5004/api/CoronaVaccine";
-        //        var response = client.PostAsJsonAsync(apiUrl, vaccine).Result;
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            // Vaccine added successfully
-        //            return RedirectToAction("Index");
-        //        }
-        //        else
-        //        {
-        //            // Handle the error case
-        //            return BadRequest("Failed to add the vaccine.");
-        //        }
-        //    }
-        //}
+ 
     }
 }
