@@ -79,7 +79,8 @@ The project is structured as follows:
 
 The menu and project run are inside a console application project of a type that contains a reference to shapes so that it can use the models found in the class library.
 
-
+<br>
+<br>
 
 ## System 2: Corona Management System for HMO
 
