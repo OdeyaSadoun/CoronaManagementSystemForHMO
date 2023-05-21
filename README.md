@@ -220,6 +220,9 @@ These entities are stored in the MYSQL database and can be managed through the A
 
 ## Part of the quality strategy is attached as a PDF file.
 
+## Schematic presentation of the information in the DB:
+![drawSQL-covid19managementsystemdb](/images/drawSQL-covid19managementsystemdb.png)
+
 ## Bonuses:
 1. Creating a client-side that uses the API I created in order to present the data visually.
 2. Creating an API for calculating a summary view: one for calculating "how many active patients there were every day in the last month", and the other for calculating the amount of health insurance members who are not vaccinated at all.
