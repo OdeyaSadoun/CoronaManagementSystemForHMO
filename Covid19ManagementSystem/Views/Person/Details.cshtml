@@ -20,48 +20,48 @@
             .then(person => {
                 const personDetailsContainer = document.getElementById('personDetailsContainer');
                 personDetailsContainer.innerHTML = `
-                            <table>
-                                <tr>
-                                    <th>Person ID:</th>
-                                    <td>${person.personId}</td>
-                                </tr>
-                                <tr>
-                                    <th>First Name:</th>
-                                    <td>${person.firstName}</td>
-                                </tr>
-                                <tr>
-                                    <th>Last Name:</th>
-                                    <td>${person.lastName}</td>
-                                </tr>
-                                <tr>
-                                    <th>ID:</th>
-                                    <td>${person.id}</td>
-                                </tr>
-                                <tr>
-                                    <th>Date of Birth:</th>
-                                    <td>${new Date(person.dateOfBirth).toLocaleDateString()}</td>
-                                </tr>
-                                <tr>
-                                    <th>Telephone:</th>
-                                    <td>${person.telephone}</td>
-                                </tr>
-                                <tr>
-                                    <th>Mobile Phone:</th>
-                                    <td>${person.mobilePhone}</td>
-                                </tr>
-                                <tr>
-                                    <th>City:</th>
-                                    <td>${person.city}</td>
-                                </tr>
-                                <tr>
-                                    <th>Street:</th>
-                                    <td>${person.street}</td>
-                                </tr>
-                                <tr>
-                                    <th>Number of Street:</th>
-                                    <td>${person.numberStreet}</td>
-                                </tr>
-                            </table>
+
+                                        <div id="parentOneline">
+                                        <h4 id="oneline">Person ID:</h4>
+                                            <label id="oneline">${person.personId}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">First Name:</h4>
+                                            <label id="oneline">${person.firstName}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">Last Name:</h4>
+                                            <label id="oneline">${person.lastName}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">ID:</h4>
+                                            <label id="oneline">${person.id}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">Date of Birth:</h4>
+                                            <label id="oneline">${new Date(person.dateOfBirth).toLocaleDateString()}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">Telephone:</h4>
+                                            <label id="oneline">${person.telephone}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">Mobile Phone:</h4>
+                                            <label id="oneline">${person.mobilePhone}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">City:</h4>
+                                            <label id="oneline">${person.city}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                            <h4 id="oneline">Street:</h4>
+                                            <label id="oneline">${person.street}</label>
+                                        </div id="parentOneline">
+                                        <div id="parentOneline">
+                                             <h4 id="oneline">Number of Street:</h4>
+                                              <label id="oneline">${person.numberStreet}</label>
+                                        </div id="parentOneline">
+                            
                         `;
             })
             .catch(error => {
@@ -70,7 +70,7 @@
     </script>
 </head>
 <body>
-    <div>
+    <div id="headerPage">
         <h1>Person Details</h1>
         <button onclick="goToHomePage()">Go to Home</button>
     </div>
