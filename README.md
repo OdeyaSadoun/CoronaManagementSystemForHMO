@@ -118,6 +118,34 @@ The system provides an API that exposes various endpoints for performing GET, PO
 
 To access Swagger, open a web browser after running the program and uploading the server and enter the address `[localhost:5004](http://localhost:5004/swagger/index.html)`.
 This will take you to the Swagger UI, where you can view and test the available API endpoints.
+![swaggerMain](/images/project2/swaggerMain.png)
+<br>
+
+# Below are some of the different options for using swagger:
+
+Getting all the corona vaccines from the database:
+![getAllVaccinesSwagger](/images/project2/getAllVaccinesSwagger.png)
+<br>
+
+Adding a person to the database:
+![addPerson1Swagger](/images/project2/addPerson1Swagger.png)
+![addPerson2Swagger](/images/project2/addPerson2Swagger.png)
+<br>
+
+Receiving specific corona test data for a certain person by id:
+![getByIdCoronaTestSwagger](/images/project2/getByIdCoronaTestSwagger.png)
+<br>
+
+Getting the statistics for the last month how many patients were every day:
+![statisticsSwagger](/images/project2/statisticsSwagger.png)
+<br>
+
+Getting the number of people who are not vaccinated at all:
+![unvaccinedSwagger](/images/project2/unvaccinedSwagger.png)
+<br>
+
+You can see that it is like a UI that allows you to get all the data through their RESTT API.
+
 
 ### Client-Side Access
 
