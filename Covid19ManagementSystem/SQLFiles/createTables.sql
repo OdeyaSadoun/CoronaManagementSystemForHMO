@@ -1,18 +1,16 @@
-
 use coronadatabase;
 
 CREATE TABLE IF NOT EXISTS Person (
     PersonId INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
-    ID VARCHAR(50) NOT NULL,
+    ID VARCHAR(50) unique NOT NULL,
     DateOfBirth DATE NOT NULL,
     Telephone VARCHAR(50) NOT NULL,
     MobilePhone VARCHAR(50) NOT NULL,
     City VARCHAR(50) NOT NULL,
     Street VARCHAR(50) NOT NULL,
-    NumberStreet VARCHAR(50) NOT NULL,
-    PersonImage LONGTEXT
+    NumberStreet VARCHAR(50) NOT NULL
 );
 
 

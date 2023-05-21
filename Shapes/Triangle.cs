@@ -26,7 +26,9 @@ namespace Shapes
             The calculation will be carried out as follows:
             square root of: half the width of the triangle squared + the height squared.
              */
-            double side = Math.Sqrt(((Width / 2) * (Width / 2)) + (Height * Height));
+            double width = (double)Width;
+
+            double side = Math.Sqrt(((width / 2) * (width / 2)) + (Height * Height));
 
             return 2 * side + Width;
         }
