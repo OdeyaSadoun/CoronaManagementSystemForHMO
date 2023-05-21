@@ -76,7 +76,7 @@ namespace Covid19ManagementSystem.Controllers
                     }
                     else
                     {
-                        return NotFound(); // Return 404 Not Found if the record with the specified ID is not found
+                        return NotFound("Corona vaccine is not found"); // Return 404 Not Found if the record with the specified ID is not found
                     }
                 }
             }
@@ -95,8 +95,8 @@ namespace Covid19ManagementSystem.Controllers
             // Validate the manufacturer
             if (coronaVaccine.Manufacturer != "Pfizer" && coronaVaccine.Manufacturer != "Moderna" && coronaVaccine.Manufacturer != "AstraZeneca" && coronaVaccine.Manufacturer != "Johnson & Johnson")
             {
-                // Return a response indicating an invalid manufacturer
-                return BadRequest("Invalid manufacturer. Allowed values are Pfizer, Moderna, AstraZeneca and Johnson & Johnson.");
+                ModelState.AddModelError("Manufacturer", "Invalid Manufacturer. Allowed values are Pfizer, Moderna, AstraZeneca and Johnson & Johnson.");
+                return BadRequest(ModelState);
             }
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -105,9 +105,14 @@ namespace Covid19ManagementSystem.Controllers
 
                 try
                 {
+
+                    /*
+                    * Checking for a correct input of personid that really exists in the person table
+                    * since it is currently a foreign key:
+                    */
                     // Check if the ID already exists in the database
+
                     string checkQuery = "SELECT COUNT(*) FROM Person WHERE PersonId = @PersonId";
-                    connection.Open();
 
                     using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
                     {
@@ -129,14 +134,13 @@ namespace Covid19ManagementSystem.Controllers
 
                     int vaccineCountForPerson = Convert.ToInt32(countCommand.ExecuteScalar());
 
-                    if (vaccineCountForPerson >= 4)
+                    if (vaccineCountForPerson >= 4) //maximum 4 vaccines per person:
                     {
-                        // Return a response indicating the maximum limit has been reached (4 vaccines):
-                        return BadRequest("Maximum number of vaccines per person reached.");
+                        ModelState.AddModelError("vaccineCountForPerson", "Maximum number of vaccines per person reached.");
+                        return BadRequest(ModelState);
                     }
-
                    
-                    // Insert the CoronaVaccine record
+                    // Insert the new CoronaVaccine
                     string query = "INSERT INTO CoronaVaccine (PersonId, VaccinationDate, Manufacturer) " +
                                    "VALUES (@PersonId, @VaccinationDate, @Manufacturer)";
 
@@ -148,33 +152,17 @@ namespace Covid19ManagementSystem.Controllers
 
                     command.ExecuteNonQuery();
 
-                    // Retrieve the auto-generated VaccineId
+                    // auto-generated VaccineId
                     int generatedId = (int)command.LastInsertedId;
-
-                    // Assign the generated VaccineId to the CoronaVaccine object
                     coronaVaccine.VaccineId = generatedId;
                 }
                 catch (MySqlException ex)
                 {
-                    /*
-                     * Checking for a correct input of personid that really exists in the person table
-                     * since it is currently a foreign key:
-                     */
-
-                    if (ex.Number == 1452) // MySQL error code for foreign key constraint violation
-                    {
-                        // PersonId does not exist:
-                        ModelState.AddModelError("PersonId", "Invalid PersonId");
-                        return BadRequest(ModelState);
-                    }
-
-                    // other exceptions
                     return BadRequest("An error occurred while inserting the CoronaVaccine: " + ex.Message);
                 }
             }
 
             return CreatedAtAction(nameof(GetAllCoronaVaccines), new { id = coronaVaccine.VaccineId }, coronaVaccine);
         }
-
     }
 }
