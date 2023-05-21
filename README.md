@@ -215,9 +215,10 @@ The main entities in the system are:
 These entities are stored in the MYSQL database and can be managed through the API or client-side interface.
 
 
-### Remarks:
 
-# Part of the quality strategy is attached as a PDF file.
+# Remarks:
+
+## Part of the quality strategy is attached as a PDF file.
 
 ## Bonuses:
 1. Creating a client side that uses the API I created in order to present the data visually.
