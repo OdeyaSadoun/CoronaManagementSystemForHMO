@@ -166,6 +166,7 @@ The home screen offers three main options:
 
 For each person, you have the following options:
    - Display Details: Provides a full view of the person's details.
+   - include his vaccines.
 ![personDetails](/images/project2/personDetails.png)
 <br>
 
