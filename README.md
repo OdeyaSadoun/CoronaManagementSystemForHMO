@@ -14,7 +14,7 @@ The "Twitter Towers" project is written in the C# language. To use the project, 
 
 ## Installation
 To set up the project, follow these steps:
-1. Clone the Git repository: `https://github.com/OdeyaSadoun/Hadasim3HomeEX`
+1. Clone the Git repository: ![URL](`https://github.com/OdeyaSadoun/Hadasim3HomeEX`)
 2. Open the project in Visual Studio or any other compatible C# development environment.
 
 ## Project Run
