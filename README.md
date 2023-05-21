@@ -2,7 +2,7 @@
 
 ## Overview
 The current project contains 2 sets for the 2 homework assignments that were required to be submitted.
-First system - Twitter towers, and second system - Corona management system for the HMO.
+The first system - is Twitter towers, and the second system - is the Corona management system for the HMO.
 
 ## Table of Contents
 - [System 1: Twitter Towers](#system-1-twitter-towers)
@@ -101,7 +101,7 @@ The menu and project run are inside a console application project of a type that
 ## System 2: Corona Management System for HMO
 
 ## Overview
-The Corona Management System for HMO is a web-based application designed to manage a corona database for a health fund. The system provides functionality to view and manage members of the health insurance fund and perform data entry for the database records. The database used is MySQL, and the application is built using C# and ASP.NET Core Web API technology.
+The Corona Management System for HMO is a web-based application designed to manage a Corona database for a health fund. The system provides functionality to view and manage members of the health insurance fund and perform data entry for the database records. The database used is MySQL, and the application is built using C# and ASP.NET Core Web API technology.
 
 ## Installation
 
@@ -151,7 +151,7 @@ Receiving specific corona test data for a certain person by id:
 ![getByIdCoronaTestSwagger](/images/project2/getByIdCoronaTestSwagger.png)
 <br>
 
-Getting the statistics for the last month how many patients were every day:
+Getting the statistics for the last month on how many patients were every day:
 ![statisticsSwagger](/images/project2/statisticsSwagger.png)
 <br>
 
@@ -159,7 +159,7 @@ Getting the number of people who are not vaccinated at all:
 ![unvaccinedSwagger](/images/project2/unvaccinedSwagger.png)
 <br>
 
-You can see that it is like a UI that allows you to get all the data through their RESTT API.
+You can see that it is like a UI that allows you to get all the data through their REST API.
 
 
 ### Client-Side Access
@@ -203,14 +203,14 @@ For each person, you have the following options:
 
 3. **Statistics Display**: This option provides two types of statistics:
    - Number of Patients per Day: Displays the number of patients for each day of the last month.
-   - Number of Unvaccinated People: Shows the number of people who have not been vaccinated at all.
+   - Number of Unvaccinated People: This shows the number of people who have not been vaccinated at all.
 
 ### Entities
 
 The main entities in the system are:
 - Person: Represents a person and contains information such as name, ID, and contact details.
-- CoronaTest: Represents a corona test and includes the person's ID, positive test date and the recovery date.
-- CoronaVaccine: Represents the corona vaccine and includes the vaccine id, the vaccine date and the manufacturer.
+- CoronaTest: This represents a corona test and includes the person's ID, positive test date, and recovery date.
+- CoronaVaccine: Represents the Corona vaccine and includes the vaccine id, the vaccine date, and the manufacturer.
 
 These entities are stored in the MYSQL database and can be managed through the API or client-side interface.
 
@@ -221,13 +221,13 @@ These entities are stored in the MYSQL database and can be managed through the A
 ## Part of the quality strategy is attached as a PDF file.
 
 ## Bonuses:
-1. Creating a client side that uses the API I created in order to present the data visually.
+1. Creating a client-side that uses the API I created in order to present the data visually.
 2. Creating an API for calculating a summary view: one for calculating "how many active patients there were every day in the last month", and the other for calculating the amount of health insurance members who are not vaccinated at all.
 3. Creating an API (and implementing it on the client side as well) for updating the date of recovery with a positive corona test result.
 
-## Options for adding development below:
+## Options for adding development are below:
 1. Displaying the statistics data in a graph in a visual way.
-2. The possibility of uploading an image for each client, preference is given to the Base64 format that converts an image to a string file and when you want to display the image again, you do the reverse conversion. The use of this format makes it possible to save all the images in the database without the need to save locally.
+2. The possibility of uploading an image for each client, preference is given to the Base64 format that converts an image to a string file and when you want to display the image again, you do the reverse conversion. The use of this format makes it possible to save all the images in the database without the need to save them locally.
 3. Building an architectural specification of the system.
 
 
