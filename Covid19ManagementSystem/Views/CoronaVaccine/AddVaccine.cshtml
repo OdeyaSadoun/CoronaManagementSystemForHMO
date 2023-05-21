@@ -3,30 +3,71 @@
 <html>
 <head>
     <title>Add Vaccine</title>
-    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="~/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function InsertCoronaVaccine() {
+            // Get the form data from UI form
+            var personId = @Model;
+            var formData = {
+                personId: personId,
+                vaccinationDate: $('#vaccinationDate').val(),
+                manufacturer: $('#manufacturer').val()
+            };
+
+            // Send a POST request to the API
+            $.ajax({
+                url: '/api/CoronaVaccine',
+                type: 'POST',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function (data) {
+                    alert('Corona vaccine added successfully');
+                    // Reset the form
+                    $('#addVaccineForm')[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred while adding the corona vaccine');
+                }
+            });
+        }
+
+        fetch(`/api/Person/@Model`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('An error occurred while fetching the person details.');
+                }
+                return response.json();
+            })
+            .then(person => {
+                
+            })
+            .catch(error => {
+                console.error('An error occurred while fetching the person details:', error);
+            });
+    </script>
 </head>
 <body>
     <h1>Add Vaccine</h1>
-
-    <form id="AddVaccineForm" method="post" asp-action="AddVaccine">
+    <form id="addVaccineForm" onsubmit="event.preventDefault(); InsertCoronaVaccine();">
         <input type="hidden" name="personId" value="@ViewBag.PersonId" />
 
         <div>
             <label for="vaccinationDate">Vaccination Date:</label>
-            <input type="date" name="vaccinationDate" required />
+            <input type="date" id="vaccinationDate" name="vaccinationDate" required />
         </div>
 
         <div>
             <label for="manufacturer">Manufacturer:</label>
-            <select name="manufacturer" required>
-                <option value="Pfizer">Pfizer</option>
-                <option value="Moderna">Moderna</option>
-                <option value="Johnson & Johnson">Johnson & Johnson</option>
-                <option value="AstraZeneca">AstraZeneca</option>
+            <select id="manufacturer" name="manufacturer" required>
+                <option id="pfizer" value="Pfizer">Pfizer</option>
+                <option id="moderna" value="Moderna">Moderna</option>
+                <option id="johnsonJohnson" value="Johnson &amp; Johnson">Johnson &amp; Johnson</option>
+                <option id="astraZeneca" value="AstraZeneca">AstraZeneca</option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" value="Add Corona Vaccine">Submit</button>
     </form>
 </body>
 </html>

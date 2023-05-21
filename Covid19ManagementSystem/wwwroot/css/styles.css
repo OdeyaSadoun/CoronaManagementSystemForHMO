@@ -1,0 +1,35 @@
+﻿/* styles.css */
+. {
+    color: #333;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+#personDetailsContainer {
+    margin-top: 20px;
+}
+
+    #personDetailsContainer p {
+        font-style: italic;
+        color: #888;
+    }

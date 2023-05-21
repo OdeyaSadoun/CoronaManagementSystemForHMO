@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Corona Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="coronaChart"></canvas>
+
+    <script>
+        // Fetch the statistics data from the server
+        fetch('/api/CoronaTest/statistics')
+            .then(response => response.json())
+            .then(data => {
+                // Extract the dates and active patients from the data
+                const dates = data.map(entry => new Date(entry.date)); // Convert the dates to JavaScript Date objects
+                const activePatients = data.map(entry => entry.activePatients);
+
+                // Create a chart using Chart.js
+                const ctx = document.getElementById('coronaChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Active Patients',
+                            data: activePatients,
+                            backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                            borderColor: 'rgba(0, 123, 255, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                },
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Active Patients'
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('An error occurred while fetching the statistics:', error);
+            });
+
+    </script>
+</body>
+</html>

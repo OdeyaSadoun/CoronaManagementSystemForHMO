@@ -20,6 +20,16 @@ namespace Covid19ManagementSystem.Controllers
             return View("~/Views/Person/Details.cshtml", id);
         }
 
+        public IActionResult AddPositiveTestToPerson(int id)
+        {
+            return View("~/Views/Person/Details.cshtml", id);
+        }
+
+        public IActionResult AddVaccineToPerson(int id)
+        {
+            return View("~/Views/CoronaVaccine/AddVaccine.cshtml", id);
+        }
+
         public IActionResult HmoPersons()
         {
             return View("~/Views/Person/GetAllPersons.cshtml");
@@ -27,7 +37,7 @@ namespace Covid19ManagementSystem.Controllers
 
         public IActionResult Statistics()
         {
-            return View();
+            return View("~/Views/CoronaTest/Statistics.cshtml");
         }
     }
 }
