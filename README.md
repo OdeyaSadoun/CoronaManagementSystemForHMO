@@ -2,7 +2,23 @@
 
 ## Overview
 The current project contains 2 sets for the 2 homework assignments that were required to be submitted.
-First system - Twitter towers, and second system - Corona management system for the HMO.
+The first system - is Twitter towers, and the second system - is the Corona management system for the HMO.
+
+## Table of Contents
+- [System 1: Twitter Towers](#system-1-twitter-towers)
+  - [Overview](#overview)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Project Run](#project-run)
+  - [Project Structure](#project-structure)
+- [System 2: Corona Management System for HMO](#system-2-corona-management-system-for-hmo)
+  - [Overview](#overview-1)
+  - [Installation](#installation-1)
+  - [Database Setup](#database-setup)
+  - [Usage](#usage)
+    - [API Access](#api-access)
+    - [Client-Side Access](#client-side-access)
+  - [Entities](#entities)
 
 # System 1: Twitter Towers
 
@@ -14,7 +30,7 @@ The "Twitter Towers" project is written in the C# language. To use the project, 
 
 ## Installation
 To set up the project, follow these steps:
-1. Clone the Git repository: https://github.com/OdeyaSadoun/Hadasim3HomeEX
+1. Clone the Git repository:  [https://github.com/OdeyaSadoun/Hadasim3HomeEX](https://github.com/OdeyaSadoun/Hadasim3HomeEX)
 2. Open the project in Visual Studio or any other compatible C# development environment.
 3. Set the TwitterTowers project as the startup project.
 
@@ -85,13 +101,13 @@ The menu and project run are inside a console application project of a type that
 ## System 2: Corona Management System for HMO
 
 ## Overview
-The Corona Management System for HMO is a web-based application designed to manage a corona database for a health fund. The system provides functionality to view and manage members of the health insurance fund and perform data entry for the database records. The database used is MySQL, and the application is built using C# and ASP.NET Core Web API technology.
+The Corona Management System for HMO is a web-based application designed to manage a Corona database for a health fund. The system provides functionality to view and manage members of the health insurance fund and perform data entry for the database records. The database used is MySQL, and the application is built using C# and ASP.NET Core Web API technology.
 
 ## Installation
 
 To run the code and set up the project, follow these steps:
 
-1. Clone the Git repository: https://github.com/OdeyaSadoun/Hadasim3HomeEX
+1. Clone the Git repository: [https://github.com/OdeyaSadoun/Hadasim3HomeEX](https://github.com/OdeyaSadoun/Hadasim3HomeEX)
 2. Ensure that a suitable development environment, such as Visual Studio 2022, is installed on your machine.
 3. Install the following libraries from NuGet Package Manager:
    - MySql.Data
@@ -121,13 +137,12 @@ This will take you to the Swagger UI, where you can view and test the available 
 ![swaggerMain](/images/project2/swaggerMain.png)
 <br>
 
-# Below are some of the different options for using swagger:
-
-Getting all the corona vaccines from the database:
+Example API endpoints:
+- `GET /api/patients`: Get all persons.
 ![getAllVaccinesSwagger](/images/project2/getAllVaccinesSwagger.png)
 <br>
 
-Adding a person to the database:
+- `POST /api/patients`: Create a new Person.
 ![addPerson1Swagger](/images/project2/addPerson1Swagger.png)
 ![addPerson2Swagger](/images/project2/addPerson2Swagger.png)
 <br>
@@ -136,7 +151,7 @@ Receiving specific corona test data for a certain person by id:
 ![getByIdCoronaTestSwagger](/images/project2/getByIdCoronaTestSwagger.png)
 <br>
 
-Getting the statistics for the last month how many patients were every day:
+Getting the statistics for the last month on how many patients were every day:
 ![statisticsSwagger](/images/project2/statisticsSwagger.png)
 <br>
 
@@ -144,13 +159,16 @@ Getting the number of people who are not vaccinated at all:
 ![unvaccinedSwagger](/images/project2/unvaccinedSwagger.png)
 <br>
 
-You can see that it is like a UI that allows you to get all the data through their RESTT API.
+You can see that it is like a UI that allows you to get all the data through their REST API.
 
 
 ### Client-Side Access
 
-In addition to the API, the system also provides a client-side view accessible through the home screen.
-When you enter the address `localhost:5004` in a web browser after running the program and uploading the server, you will be directed to the home screen of the client view.
+To use the client-side interface, follow these steps:
+1. Run the "CoronaManagementSystem" project in Visual Studio.
+2. Open a web browser and navigate to `https://localhost:5004`.
+
+The client-side interface allows you to manage patients, tests, and lab results through a user-friendly web interface.
 
 The home screen offers three main options:
 ![clientMain](/images/project2/clientMain.png)
@@ -183,54 +201,43 @@ For each person, you have the following options:
 <br>
 
 
-3. **Statistics Display**: This option provides two types of statistics:
+3. **Statistics Display - SOON!**: This option provides two types of statistics:
    - Number of Patients per Day: Displays the number of patients for each day of the last month.
-   - Number of Unvaccinated People: Shows the number of people who have not been vaccinated at all.
+   - Number of Unvaccinated People: This shows the number of people who have not been vaccinated at all.
 
-## Entities
+### Entities
 
-The system manages three types of entities: Person, CoronaVaccine, and CoronaTest.
+The main entities in the system are:
+- Person: Represents a person and contains information such as name, ID, and contact details.
+- CoronaTest: This represents a corona test and includes the person's ID, positive test date, and recovery date.
+- CoronaVaccine: Represents the Corona vaccine and includes the vaccine id, the vaccine date, and the manufacturer.
 
- Each entity corresponds to a table in the database.
-
-### Person
-
-The `Person` entity represents an person and has the following attributes:
-
-- `PersonId`: Unique identifier for the person.
-- `FirstName`: First name of the person.
-- `LastName`: Last name of the person.
-- `ID`: Identification number of the person.
-- `DateOfBirth`: Date of birth of the person.
-- `Telephone`: Telephone number of the person.
-- `MobilePhone`: Mobile phone number of the person.
-- `City`: City where the person resides.
-- `Street`: Street where the person resides.
-- `NumberStreet`: House number on the street.
-
-### CoronaVaccine
-
-The `CoronaVaccine` entity represents a corona vaccine and has the following attributes:
-
-- `VaccineId`: Unique identifier for the vaccine.
-- `PersonId`: ID of the person associated with the vaccine.
-- `VaccinationDate`: Date when the vaccine was administered.
-- `Manufacturer`: Name of the vaccine manufacturer.
-
-### CoronaTest
-
-The `CoronaTest` entity represents a corona test and has the following attributes:
-
-- `TestId`: Unique identifier for the test.
-- `PersonId`: ID of the person associated with the test.
-- `PositiveDate`: Date when the positive test result was received.
-- `RecoveryDate`: Date when the person recovered from the virus. (Nullable)
+These entities are stored in the MYSQL database and can be managed through the API or client-side interface.
 
 
 
+# Remarks:
 
-Note that the system extends the requirements of the exercise by allowing the updating of the recovery date and implementing additional features beyond the exercise scope.
+## Part of the quality strategy is attached as a PDF file.
+
+## Bonuses:
+1. Creating a client-side that uses the API I created in order to present the data visually.
+2. Creating an API for calculating a summary view: one for calculating "how many active patients there were every day in the last month", and the other for calculating the amount of health insurance members who are not vaccinated at all.
+3. Creating an API (and implementing it on the client side as well) for updating the date of recovery with a positive corona test result.
+
+## Options for adding development are below:
+1. Displaying the statistics data in a graph in a visual way.
+2. The possibility of uploading an image for each client, preference is given to the Base64 format that converts an image to a string file and when you want to display the image again, you do the reverse conversion. The use of this format makes it possible to save all the images in the database without the need to save them locally.
+3. Building an architectural specification of the system.
 
 
+## Conclusion
 
+In conclusion, the exercises in this project demonstrate the implementation of two different systems: "Twitter Towers" and the "Corona Management System for HMO." The "Twitter Towers" project focuses on presenting tower options for Twitter, while the "Corona Management System for HMO" provides a system for managing corona-related data within an HMO.
 
+By following the installation instructions and running the projects, you can explore their functionalities and understand the concepts applied.
+
+## Additional Information
+
+If you have any questions or suggestions regarding the project, please feel free to reach out to me. I would be happy to hear your feedback and engage in discussions.
+odeya.sadoun@gmail.com
