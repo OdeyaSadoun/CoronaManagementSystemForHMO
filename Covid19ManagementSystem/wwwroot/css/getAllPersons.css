@@ -1,0 +1,50 @@
+﻿/* styles.css */
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fbcbc9;
+    color: #322514;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Heading styles */
+h1 {
+    color: #e75874;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #be1558;
+}
+
+    table th,
+    table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #be1558;
+    }
+
+    table th {
+        background-color: #be1558;
+        color: #fbcbc9;
+    }
+
+    table td {
+        background-color: #e75874;
+        color: #ffffff;
+    }
+
+        table td a {
+            color: #322514;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+            table td a:hover {
+                text-decoration: underline;
+            }

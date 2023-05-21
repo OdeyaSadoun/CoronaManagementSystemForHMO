@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Persons List</title>
-    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/getAllPersons.css">
     <script>
         // Send a GET request to the API
         fetch('/api/Person')
@@ -17,13 +17,15 @@
                 data.forEach(person => {
                     var tableRow = document.createElement('tr');
                     tableRow.innerHTML = `
+
                                         <td>${person.id}</td>
                                         <td>${person.firstName} ${person.lastName}</td>
                                         <td>${new Date(person.dateOfBirth).toLocaleDateString()}</td>
                                         <td>${person.mobilePhone}</td>
                                         <td>
-                                        <a href="/Home/PersonDetails?id=${person.personId}">Details</a> |
+                                        <a href="/Home/PersonDetails?id=${person.personId}">Details</a> | 
                                         <a href="/Home/AddPositiveTestToPerson?id=${person.personId}">AddPositiveTest</a> |
+                                        <a href="/Home/SetRecoveryToPerson?id=${person.personId}">SetRecoveryToPerson</a> |
                                         <a href="/Home/AddVaccineToPerson?id=${person.personId}">AddVaccineToPerson</a>
                                         </td>
                                     `;
