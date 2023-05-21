@@ -2,22 +2,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Add Positive Test</title>
     <link rel="stylesheet" href="~/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function InsertPositiveCoronaTest() {
+            // Get the form data from UI form
+            var personId = @Model;
+            var formData = {
+                personId: personId,
+                positiveDate: $('#positiveTestDate').val(),
+                recoveryDate: null
+            };
+
+            // Send a POST request to the API
+            $.ajax({
+                url: '/api/CoronaTest',
+                type: 'POST',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function (data) {
+                    alert('Positive corona test added successfully');
+                    // Reset the form
+                    $('#addCoronaTestForm')[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    alert('An error occurred while adding the positive corona test');
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
     <h1>Add Positive Test</h1>
-    <form method="post" asp-action="AddPositiveTest">
-        <input type="hidden" name="personId" value="@ViewBag.PersonId" />
+    <form id="addCoronaTestForm" onsubmit="event.preventDefault(); InsertPositiveCoronaTest();">
 
         <div>
             <label for="positiveTestDate">Positive Test Date:</label>
-            <input type="date" name="positiveTestDate" required />
+            <input type="date" id="positiveTestDate" name="positiveTestDate" required />
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" value="Add Corona Test">Submit</button>
     </form>
 </body>
 </html>

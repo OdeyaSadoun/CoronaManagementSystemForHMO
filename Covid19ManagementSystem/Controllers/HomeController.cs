@@ -22,7 +22,7 @@ namespace Covid19ManagementSystem.Controllers
 
         public IActionResult AddPositiveTestToPerson(int id)
         {
-            return View("~/Views/Person/Details.cshtml", id);
+            return View("~/Views/CoronaTest/AddPositiveTest.cshtml", id);
         }
 
         public IActionResult AddVaccineToPerson(int id)
