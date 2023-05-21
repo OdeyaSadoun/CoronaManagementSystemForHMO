@@ -35,6 +35,9 @@
                     window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        alert('Person is not found');
+                    }
                     var errorMessage = JSON.stringify(xhr.responseJSON);
                     alert('An error occurred while adding the person: ' + errorMessage);
                 }

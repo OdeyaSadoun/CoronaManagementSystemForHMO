@@ -89,7 +89,7 @@ namespace Covid19ManagementSystem.Controllers
                     }
                     else
                     {
-                        return NotFound(); // Return 404 Not Found if the record with the specified ID is not found
+                        return NotFound("Person is not found"); // Return 404 Not Found if the record with the specified ID is not found
                     }
                 }
             }
@@ -109,9 +109,9 @@ namespace Covid19ManagementSystem.Controllers
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
+                    connection.Open();
                     // Check if the ID already exists in the database:
                     string checkQuery = "SELECT COUNT(*) FROM Person WHERE ID = @ID";
-                    connection.Open();
 
                     using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
                     {
@@ -130,7 +130,6 @@ namespace Covid19ManagementSystem.Controllers
                     string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
                            "VALUES (@FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
 
-                    connection.Open();
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
