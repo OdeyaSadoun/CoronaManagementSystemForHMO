@@ -31,20 +31,6 @@
                 }
             });
         }
-
-        fetch(`/api/Person/@Model`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('An error occurred while fetching the person details.');
-                }
-                return response.json();
-            })
-            .then(person => {
-                
-            })
-            .catch(error => {
-                console.error('An error occurred while fetching the person details:', error);
-            });
     </script>
 </head>
 <body>
