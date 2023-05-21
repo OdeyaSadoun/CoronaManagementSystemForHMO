@@ -1,5 +1,4 @@
-﻿/* addPerson.css */
-body {
+﻿body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,33 +32,33 @@ h1 {
     font-size: large;
 }
 
-    #addPersonForm div {
-        margin-bottom: 10px;
-    }
+#addPersonForm div {
+    margin-bottom: 10px;
+}
 
-    #addPersonForm label {
-        display: inline-block;
-        width: 150px;
-        font-weight: bold;
-    }
+#addPersonForm label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
 
-    #addPersonForm input[type="text"],
-    #addPersonForm input[type="date"],
-    #addPersonForm input[type="tel"],
-    #addPersonForm input[type="file"] {
-        width: 200px;
-        padding: 5px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-    }
+#addPersonForm input[type="text"],
+#addPersonForm input[type="date"],
+#addPersonForm input[type="tel"],
+#addPersonForm input[type="file"] {
+    width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
 
-    #addPersonForm button[type="submit"] {
-        display: block;
-        margin: 10px auto;
-        padding: 10px 20px;
-        background-color: #be1558;
-        color: #ffffff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+#addPersonForm button[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #be1558;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

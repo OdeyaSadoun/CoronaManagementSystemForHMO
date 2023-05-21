@@ -31,33 +31,33 @@ h1 {
     font-size: large;
 }
 
-    #addCoronaTestForm div {
-        margin-bottom: 10px;
-    }
+#addCoronaTestForm div {
+    margin-bottom: 10px;
+}
 
-    #addCoronaTestForm label {
-        display: inline-block;
-        width: 150px;
-        font-weight: bold;
-    }
+#addCoronaTestForm label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
 
-    #addCoronaTestForm input[type="text"],
-    #addCoronaTestForm input[type="date"],
-    #addCoronaTestForm input[type="tel"],
-    #addCoronaTestForm input[type="file"] {
-        width: 200px;
-        padding: 5px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-    }
+#addCoronaTestForm input[type="text"],
+#addCoronaTestForm input[type="date"],
+#addCoronaTestForm input[type="tel"],
+#addCoronaTestForm input[type="file"] {
+    width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
 
-    #addCoronaTestForm button[type="submit"] {
-        display: block;
-        margin: 10px auto;
-        padding: 10px 20px;
-        background-color: #be1558;
-        color: #ffffff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+#addCoronaTestForm button[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #be1558;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

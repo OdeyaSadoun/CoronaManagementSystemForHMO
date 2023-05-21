@@ -31,33 +31,33 @@ h1 {
     font-size: large;
 }
 
-    #addVaccineForm div {
-        margin-bottom: 10px;
-    }
+#addVaccineForm div {
+    margin-bottom: 10px;
+}
 
-    #addVaccineForm label {
-        display: inline-block;
-        width: 150px;
-        font-weight: bold;
-    }
+#addVaccineForm label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
 
-    #addVaccineForm input[type="text"],
-    #addVaccineForm input[type="date"],
-    #addVaccineForm input[type="tel"],
-    #addVaccineForm input[type="file"] {
-        width: 200px;
-        padding: 5px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-    }
+#addVaccineForm input[type="text"],
+#addVaccineForm input[type="date"],
+#addVaccineForm input[type="tel"],
+#addVaccineForm input[type="file"] {
+    width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
 
-    #addVaccineForm button[type="submit"] {
-        display: block;
-        margin: 10px auto;
-        padding: 10px 20px;
-        background-color: #be1558;
-        color: #ffffff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+#addVaccineForm button[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #be1558;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}

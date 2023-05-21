@@ -31,33 +31,33 @@ h1 {
     font-size: large;
 }
 
-    #setRecoveryDate div {
-        margin-bottom: 10px;
-    }
+#setRecoveryDate div {
+    margin-bottom: 10px;
+}
 
-    #setRecoveryDate label {
-        display: inline-block;
-        width: 150px;
-        font-weight: bold;
-    }
+#setRecoveryDate label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
 
-    #setRecoveryDate input[type="text"],
-    #setRecoveryDate input[type="date"],
-    #setRecoveryDate input[type="tel"],
-    #setRecoveryDate input[type="file"] {
-        width: 200px;
-        padding: 5px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-    }
+#setRecoveryDate input[type="text"],
+#setRecoveryDate input[type="date"],
+#setRecoveryDate input[type="tel"],
+#setRecoveryDate input[type="file"] {
+    width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
 
-    #setRecoveryDate button[type="submit"] {
-        display: block;
-        margin: 10px auto;
-        padding: 10px 20px;
-        background-color: #be1558;
-        color: #ffffff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
+#setRecoveryDate button[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #be1558;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
