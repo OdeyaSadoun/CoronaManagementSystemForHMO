@@ -14,22 +14,53 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    width: 30%;
     padding: 30px;
     background-color: #e75874;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: large;
+    font-size: medium;
 }
 
+#continarToDetails {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+#vaccinesTable {
+    margin-top: 20px;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+    #vaccinesTable th,
+    #vaccinesTable td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #322514;
+    }
+
+    #vaccinesTable th {
+        background-color: #e75874;
+        color: white;
+    }
+
+#headerPage {
+    margin-bottom: 20px;
+    text-align: center;
+}
 #parentOneline {
     white-space: nowrap;
     overflow-x: auto;
 }
+
 #oneline {
     display: inline-block;
     margin-left: 10px;
 }
+
 #headerPage {
     margin-bottom: 20px;
     text-align: center;
