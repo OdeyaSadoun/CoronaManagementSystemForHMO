@@ -3,9 +3,12 @@
 <html>
 <head>
     <title>Add Vaccine</title>
-    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/addVaccine.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function goToHomePage() {
+            window.location.href = "/Home";
+        }
         function InsertCoronaVaccine() {
             // Get the form data from UI form
             var personId = @Model;
@@ -23,8 +26,8 @@
                 contentType: 'application/json',
                 success: function (data) {
                     alert('Corona vaccine added successfully');
-                    // Reset the form
-                    $('#addVaccineForm')[0].reset();
+                    //go to the list of persons
+                    window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
                     alert('An error occurred while adding the corona vaccine');
@@ -34,7 +37,11 @@
     </script>
 </head>
 <body>
-    <h1>Add Vaccine</h1>
+    <div id="headerPage">
+        <h1>Add Vaccine</h1>
+        <button onclick="goToHomePage()">Go to Home</button>
+    </div>
+
     <form id="addVaccineForm" onsubmit="event.preventDefault(); InsertCoronaVaccine();">
 
         <div>

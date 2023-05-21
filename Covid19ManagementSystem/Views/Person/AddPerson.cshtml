@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Person</title>
-    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/addPerson.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function goToHomePage() {
+            window.location.href = "/Home";
+        }
         function insertPerson() {
             // Get the form data from ui form
             var formData = {
@@ -20,16 +23,16 @@
                 NumberStreet: $('#NumberStreet').val()
             };
 
-            // Send a POST request to the API 
+            // Send a POST request to the API
             $.ajax({
                 url: '/api/Person',
                 type: 'POST',
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
-                success: function (data) {                   
+                success: function (data) {
                     alert('Person added successfully');
-                    // Reset the form
-                    $('#addPersonForm')[0].reset();
+                    //go to the list of persons
+                    window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
                     alert('An error occurred while adding the person');
@@ -39,7 +42,10 @@
     </script>
 </head>
 <body>
-    <h2>Add Person</h2>
+    <div id="headerPage">
+        <h1>Add Person</h1>
+        <button onclick="goToHomePage()">Go to Home</button>
+    </div>
     <form id="addPersonForm" onsubmit="event.preventDefault(); insertPerson();">
         <div>
             <label for="FirstName">First Name:</label>
@@ -53,7 +59,7 @@
 
         <div>
             <label for="ID">ID:</label>
-            <input type="text" id="ID" name="ID"  required>
+            <input type="text" id="ID" name="ID" required>
         </div>
 
         <div>
@@ -63,7 +69,7 @@
 
         <div>
             <label for="Telephone">Telephone:</label>
-            <input type="tel" id="Telephone" name="Telephone"  required>
+            <input type="tel" id="Telephone" name="Telephone" required>
         </div>
 
         <div>

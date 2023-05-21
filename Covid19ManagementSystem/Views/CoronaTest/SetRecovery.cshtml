@@ -2,35 +2,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Positive Test</title>
-    <link rel="stylesheet" href="~/css/addPositiveTest.css">
+    <title>Set Recovery Date</title>
+    <link rel="stylesheet" href="~/css/setRecoveryDate.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function goToHomePage() {
             window.location.href = "/Home";
         }
-        function InsertPositiveCoronaTest() {
+        function SetRecoveryDate() {
             // Get the form data from UI form
             var personId = @Model;
             var formData = {
                 personId: personId,
-                positiveDate: $('#positiveTestDate').val(),
-                recoveryDate: null
+                recoveryDate: $('#recoveryDate').val()
             };
 
             // Send a POST request to the API
             $.ajax({
                 url: '/api/CoronaTest',
-                type: 'POST',
+                type: 'PUT',
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 success: function (data) {
-                    alert('Positive corona test added successfully');
+                    alert('Recovery date set successfully');
                     //go to the list of persons
                     window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
-                    alert('An error occurred while adding the positive corona test');
+                    alert('An error occurred while setting the recovery date');
                 }
             });
         }
@@ -39,17 +38,17 @@
 
 <body>
     <div id="headerPage">
-        <h1>Add Positive Test</h1>
+        <h1>Set Recovery Date</h1>
         <button onclick="goToHomePage()">Go to Home</button>
     </div>
-    <form id="addCoronaTestForm" onsubmit="event.preventDefault(); InsertPositiveCoronaTest();">
+    <form id="setRecoveryDate" onsubmit="event.preventDefault(); SetRecoveryDate();">
 
         <div>
-            <label for="positiveTestDate">Positive Test Date:</label>
-            <input type="date" id="positiveTestDate" name="positiveTestDate" required />
+            <label for="recoveryDate">Recovery Date:</label>
+            <input type="date" id="recoveryDate" name="recoveryDate" required />
         </div>
 
-        <button type="submit" value="Add Corona Test">Submit</button>
+        <button type="submit" value="Set Recovery Date">Submit</button>
     </form>
 </body>
 </html>

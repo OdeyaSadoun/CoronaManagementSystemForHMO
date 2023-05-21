@@ -1,0 +1,63 @@
+﻿body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #fbcbc9;
+    font-family: Arial, sans-serif;
+    font-size:large;
+}
+
+h1 {
+    color: #e75874;
+}
+
+#headerPage {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#addCoronaTestForm {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    padding: 30px;
+    background-color: #e75874;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: large;
+}
+
+    #addCoronaTestForm div {
+        margin-bottom: 10px;
+    }
+
+    #addCoronaTestForm label {
+        display: inline-block;
+        width: 150px;
+        font-weight: bold;
+    }
+
+    #addCoronaTestForm input[type="text"],
+    #addCoronaTestForm input[type="date"],
+    #addCoronaTestForm input[type="tel"],
+    #addCoronaTestForm input[type="file"] {
+        width: 200px;
+        padding: 5px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+    }
+
+    #addCoronaTestForm button[type="submit"] {
+        display: block;
+        margin: 10px auto;
+        padding: 10px 20px;
+        background-color: #be1558;
+        color: #ffffff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }

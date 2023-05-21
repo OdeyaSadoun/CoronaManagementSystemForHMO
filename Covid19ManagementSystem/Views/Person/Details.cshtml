@@ -6,6 +6,9 @@
     <title>Person Details</title>
     <link rel="stylesheet" href="~/css/styles.css">
     <script>
+        function goToHomePage() {
+            window.location.href = "/Home";
+        }
         // Send a GET request to the API 
         fetch(`/api/Person/@Model`)
             .then(response => {
@@ -67,7 +70,10 @@
     </script>
 </head>
 <body>
-    <h1>Person Details</h1>
+    <div>
+        <h1>Person Details</h1>
+        <button onclick="goToHomePage()">Go to Home</button>
+    </div>
     <div id="personDetailsContainer"></div>
 </body>
 </html>

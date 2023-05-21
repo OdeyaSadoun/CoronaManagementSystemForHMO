@@ -4,6 +4,10 @@
     <title>Persons List</title>
     <link rel="stylesheet" href="~/css/getAllPersons.css">
     <script>
+        function goToHomePage() {
+            window.location.href = "/Home";
+        }
+
         // Send a GET request to the API
         fetch('/api/Person')
             .then(response => {
@@ -38,8 +42,12 @@
     </script>
 </head>
 <body>
-    <h1>Persons List</h1>
+    <div>
+        <h1>Persons List</h1>
+        <button onclick="goToHomePage()">Go to Home</button>
+    </div>
     <table id="personsTable">
+        
         <tr>
             <th>ID</th>
             <th>Name</th>
