@@ -173,8 +173,8 @@ namespace Covid19ManagementSystem.Controllers
         }
 
         // Update the RecoveryDate for a specific person's corona test
-        [HttpPatch("{personId}/recoverydate")]
-        public ActionResult UpdateRecoveryDate(int personId, [FromBody] DateTime recoveryDate)
+        [HttpPut("{personId}/recoverydate")]
+        public ActionResult UpdateRecoveryDate(int personId, CoronaTest coronaTest)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -226,7 +226,7 @@ namespace Covid19ManagementSystem.Controllers
                     {
                         DateTime positiveDate = reader.GetDateTime(0);
 
-                        if (recoveryDate <= positiveDate)
+                        if (coronaTest.RecoveryDate <= positiveDate)
                         {
                             return BadRequest("RecoveryDate must be later than the PositiveDate."); // Return 400 Bad Request if recoveryDate is not later than positiveDate
                         }
@@ -240,7 +240,7 @@ namespace Covid19ManagementSystem.Controllers
                 // Update the RecoveryDate
                 string updateQuery = "UPDATE coronatest SET RecoveryDate = @RecoveryDate WHERE PersonId = @PersonId";
                 MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection);
-                updateCommand.Parameters.AddWithValue("@RecoveryDate", recoveryDate);
+                updateCommand.Parameters.AddWithValue("@RecoveryDate", coronaTest.RecoveryDate);
                 updateCommand.Parameters.AddWithValue("@PersonId", personId);
 
                 updateCommand.ExecuteNonQuery();
