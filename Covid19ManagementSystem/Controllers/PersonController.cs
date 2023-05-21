@@ -109,7 +109,7 @@ namespace Covid19ManagementSystem.Controllers
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    // Check if the ID already exists in the database
+                    // Check if the ID already exists in the database:
                     string checkQuery = "SELECT COUNT(*) FROM Person WHERE ID = @ID";
                     connection.Open();
 
@@ -126,7 +126,7 @@ namespace Covid19ManagementSystem.Controllers
                         }
                     }
 
-                    // If the ID doesn't exist add the new person to database
+                    // If the ID doesn't exist add the new person to database:
                     string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
                            "VALUES (@FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
 
@@ -143,15 +143,11 @@ namespace Covid19ManagementSystem.Controllers
                         command.Parameters.AddWithValue("@City", person.City);
                         command.Parameters.AddWithValue("@Street", person.Street);
                         command.Parameters.AddWithValue("@NumberStreet", person.NumberStreet);
-                        //command.Parameters.AddWithValue("@PersonImage", person.PersonImage);
-
 
                         command.ExecuteNonQuery();
 
-                        // Retrieve the auto-generated PersonId
+                        //auto-generated PersonId
                         int generatedId = (int)command.LastInsertedId;
-
-                        // Assign the generated PersonId to the Person object
                         person.PersonId = generatedId;
                     }
                 }
@@ -160,7 +156,6 @@ namespace Covid19ManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception appropriately (e.g., log the error, return a specific error response)
                 return StatusCode(500, "An error occurred while inserting the person.");
             }
         }

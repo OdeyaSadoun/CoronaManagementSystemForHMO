@@ -105,7 +105,23 @@ namespace Covid19ManagementSystem.Controllers
 
                 try
                 {
-                   
+                    // Check if the ID already exists in the database
+                    string checkQuery = "SELECT COUNT(*) FROM Person WHERE PersonId = @PersonId";
+                    connection.Open();
+
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@PersonId", coronaVaccine.PersonId); ;
+
+                        int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                        if (count <= 0)
+                        {
+                            ModelState.AddModelError("PersonId", "The PersonId is not exists in the system.");
+                            return BadRequest(ModelState);
+                        }
+                    }
+
                     // Check if the person already has 4 vaccines:
                     string countQuery = "SELECT COUNT(*) FROM coronavaccine WHERE PersonId = @PersonId";
                     MySqlCommand countCommand = new MySqlCommand(countQuery, connection);

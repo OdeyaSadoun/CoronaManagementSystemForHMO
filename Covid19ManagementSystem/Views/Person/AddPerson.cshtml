@@ -35,7 +35,8 @@
                     window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
-                    alert('An error occurred while adding the person');
+                    var errorMessage = JSON.stringify(xhr.responseJSON);
+                    alert('An error occurred while adding the person: ' + errorMessage);
                 }
             });
         }
