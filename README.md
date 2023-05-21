@@ -153,14 +153,34 @@ In addition to the API, the system also provides a client-side view accessible t
 When you enter the address `localhost:5004` in a web browser after running the program and uploading the server, you will be directed to the home screen of the client view.
 
 The home screen offers three main options:
+![clientMain](/images/project2/clientMain.png)
+<br>
 
 1. **Adding a Person**: Clicking on this option will take you to a form where you can enter details for a new person in the system. After submitting the form, the information will be sent to the appropriate API endpoint via an AJAX request using the jQuery library. The person's details will be stored in the database.
+![addPersonClient](/images/project2/addPersonClient.png)
+<br>
 
-2. **Displaying People**: This option allows you to view all the people in the system. For each person, you have the following options:
+2. **Displaying People**: This option allows you to view all the people in the system.
+![personsListClient](/images/project2/personsListClient.png)
+<br>
+
+For each person, you have the following options:
    - Display Details: Provides a full view of the person's details.
+![personDetails](/images/project2/personDetails.png)
+<br>
+
    - Add Positive Corona Test: Opens a page where you can enter the date of exposure to the virus. Submitting the form will add the positive corona test to the appropriate table in the database.
+![addPositiveTest](/images/project2/addPositiveTest.png)
+<br>
+
    - Update Recovery Date: Allows you to update the date of recovery from the virus. This option is available only when the date of receiving a positive answer is already entered.
+![setRecoveryDate](/images/project2/setRecoveryDate.png)
+<br>
+
    - Insert Vaccine: Opens a window for entering the date and manufacturer's name of the vaccine. Submitting the form will add the vaccine to the appropriate table in the database. Note that only up to four vaccines can be added for each person.
+![addVaccine](/images/project2/addVaccine.png)
+<br>
+
 
 3. **Statistics Display**: This option provides two types of statistics:
    - Number of Patients per Day: Displays the number of patients for each day of the last month.
