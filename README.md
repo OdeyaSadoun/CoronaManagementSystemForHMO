@@ -201,7 +201,7 @@ For each person, you have the following options:
 <br>
 
 
-3. **Statistics Display**: This option provides two types of statistics:
+3. **Statistics Display - SOON!**: This option provides two types of statistics:
    - Number of Patients per Day: Displays the number of patients for each day of the last month.
    - Number of Unvaccinated People: This shows the number of people who have not been vaccinated at all.
 
