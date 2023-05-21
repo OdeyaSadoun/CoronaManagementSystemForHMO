@@ -33,30 +33,40 @@ The menu will continue to display until the user selects option 3 to exit the sy
 ### Rectangular Tower
 
 For a rectangular tower:
-
 1. Enter the height and width of the tower.
 2. The program performs tests based on the user's input.
 3. If the tower is a square or a rectangle with a difference between the lengths of its sides greater than 5, the area of the rectangle will be printed.
 4. Otherwise, the perimeter of the rectangle will be printed.
+<br>
+#option 3
+
+![RectArea](/images/project1/rectArea.png)
+
+#option 4
+
+![RectPerm](/images/project1/rectPerm.png)
 
 <br>
-![rectArea](/images/project1/rectArea.png)
-<br>
-
-<br>
-![rectPerm](/images/project1/rectPerm.png)
-<br>
-
 
 
 ### Triangular Tower
-
 
 For a triangular tower:
 1. After choosing the triangle option from the main menu, an additional menu is presented.
 2. The user can choose whether they are interested in the perimeter of the triangle or its printing.
 3. If the user selects the perimeter, the program calculates the perimeter and prints its value.
 4. Otherwise, the program prints the triangle in a star display based on the project settings.
+<br>
+#option 3
+
+![TriPerm](/images/project1/triPerm.png)
+
+#option 4
+
+![TriPrint](/images/project1/triPrint.png)
+
+<br>
+
 
 Throughout the project, input integrity checks are performed to ensure data validity.
 
