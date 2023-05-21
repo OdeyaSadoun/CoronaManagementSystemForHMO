@@ -25,7 +25,6 @@ namespace Covid19ManagementSystem.Controllers
             return View("~/Views/CoronaTest/AddPositiveTest.cshtml", id);
         }
 
-        //****************************************************
         public IActionResult SetRecoveryToPerson(int id)
         {
             return View("~/Views/CoronaTest/SetRecovery.cshtml", id);

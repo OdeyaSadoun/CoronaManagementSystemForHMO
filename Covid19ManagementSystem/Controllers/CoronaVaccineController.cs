@@ -13,7 +13,12 @@ namespace Covid19ManagementSystem.Controllers
     {
         private readonly string connectionString = "Server=localhost;Port=3306;Database=coronadatabase;Uid=root;Pwd=password;";
 
-        //get all corona vaccines:
+        /// <summary>
+        /// Get all corona vaccines:
+        /// </summary>
+        /// <returns>
+        /// List of Corona vaccines
+        /// </returns>
         [HttpGet]
         public ActionResult<IEnumerable<CoronaVaccine>> GetAllCoronaVaccines()
         {
@@ -47,7 +52,11 @@ namespace Covid19ManagementSystem.Controllers
             return Ok(coronaVaccines);
         }
 
-        //get specific corona vaccines by id:
+        /// <summary>
+        /// Get specific corona vaccines by id:
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The corona vaccine with id param</returns>
         [HttpGet("{id}")]
         public ActionResult<CoronaVaccine> GetCoronaVaccineById(int id)
         {
@@ -82,7 +91,11 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
-        //get specific corona vaccines by id:
+        /// <summary>
+        ///get specific corona vaccines by id:
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The corona vaccine with the person id param</returns>
         [HttpGet("person/{id}")]
         public ActionResult<IEnumerable<CoronaVaccine>> GetCoronaVaccinesByPersonId(int id)
         {
@@ -116,9 +129,12 @@ namespace Covid19ManagementSystem.Controllers
 
             return Ok(coronaVaccines);
         }
-        
 
-        //insert new corona vaccine to database:
+        /// <summary>
+        /// insert new corona vaccine to database:
+        /// </summary>
+        /// <param name="coronaVaccine"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult<CoronaVaccine> InsertCoronaVaccine(CoronaVaccine coronaVaccine)
         {

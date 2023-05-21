@@ -12,7 +12,12 @@ namespace Covid19ManagementSystem.Controllers
     {
         private readonly string connectionString = "Server=localhost;Port=3306;Database=coronadatabase;Uid=root;Pwd=password;";
 
-        //get all corona tests:
+        /// <summary>
+        /// Get all corona tests.
+        /// </summary>
+        /// <returns>
+        /// List of Corona tests
+        /// </returns>
         [HttpGet]
         public ActionResult<IEnumerable<CoronaTest>> GetAllCoronaTests()
         {
@@ -46,7 +51,10 @@ namespace Covid19ManagementSystem.Controllers
             return Ok(coronaTests);
         }
 
-        //get specific corona test by id:
+        /// <summary>
+        /// Get specific corona test by ID.
+        /// </summary>
+        /// <param name="id">The ID of the corona test.</param>
         [HttpGet("{id}")]
         public ActionResult<CoronaTest> GetCoronaTestById(int id)
         {
@@ -81,7 +89,10 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
-        //insert new corona test to database:
+        /// <summary>
+        /// Insert a new corona test to the database.
+        /// </summary>
+        /// <param name="coronaTest">The corona test object to insert.</param>
         [HttpPost]
         public ActionResult<CoronaTest> InsertCoronaTest(CoronaTest coronaTest)
         {
@@ -175,7 +186,11 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
-        // Update the RecoveryDate for a specific person's corona test
+        /// <summary>
+        /// Update the RecoveryDate for a specific person's corona test.
+        /// </summary>
+        /// <param name="personId">The ID of the person.</param>
+        /// <param name="coronaTest">The updated corona test object.</param>
         [HttpPut("{personId}/recoverydate")]
         public ActionResult UpdateRecoveryDate(int personId, CoronaTest coronaTest)
         {
@@ -262,6 +277,9 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// Get corona statistics for the last 30 days.
+        /// </summary>
         [HttpGet("statistics")]
         public ActionResult<IEnumerable<CoronaStatistics>> GetCoronaStatistics()
         {
@@ -319,7 +337,9 @@ namespace Covid19ManagementSystem.Controllers
             return Ok(statistics);
         }
 
-        // Get the number of persons who did not receive any vaccine
+        /// <summary>
+        /// Get the number of persons who did not receive any vaccine.
+        /// </summary>
         [HttpGet("unvaccinated")]
         public ActionResult<int> GetUnvaccinatedPersonsCount()
         {
@@ -338,7 +358,5 @@ namespace Covid19ManagementSystem.Controllers
                 return unvaccinatedCount;
             }
         }
-
-    }
-   
+    }   
 }

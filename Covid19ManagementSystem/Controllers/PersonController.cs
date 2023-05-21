@@ -13,8 +13,10 @@ namespace Covid19ManagementSystem.Controllers
     {
         private readonly string connectionString = "Server=localhost;Port=3306;Database=coronadatabase;Uid=root;Pwd=password;";
 
-
-        //get all persons:
+        /// <summary>
+        /// Get all persons:
+        /// </summary>
+        /// <returns>List of persons</returns>
         [HttpGet]
         public ActionResult<IEnumerable<Person>> GetAllPersons()
         {
@@ -54,7 +56,11 @@ namespace Covid19ManagementSystem.Controllers
             return Ok(persons);
         }
 
-        //get person by id:
+        /// <summary>
+        /// get person by id:
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult<Person> GetPersonById(int id)
         {
@@ -95,7 +101,11 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
-        //insert new persont to database
+        /// <summary>
+        /// insert new persont to database
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult<Person> InsertPerson(Person person)
         {
@@ -158,6 +168,5 @@ namespace Covid19ManagementSystem.Controllers
                 return StatusCode(500, "An error occurred while inserting the person.");
             }
         }
- 
     }
 }
