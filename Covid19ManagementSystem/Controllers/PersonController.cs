@@ -109,6 +109,24 @@ namespace Covid19ManagementSystem.Controllers
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
+                    // Check if the ID already exists in the database
+                    string checkQuery = "SELECT COUNT(*) FROM Person WHERE ID = @ID";
+                    connection.Open();
+
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@ID", person.ID);
+
+                        int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            ModelState.AddModelError("ID", "The ID already exists in the system.");
+                            return BadRequest(ModelState);
+                        }
+                    }
+
+                    // If the ID doesn't exist add the new person to database
                     string query = "INSERT INTO Person (FirstName, LastName, ID, DateOfBirth, Telephone, MobilePhone, City, Street, NumberStreet) " +
                            "VALUES (@FirstName, @LastName, @ID, @DateOfBirth, @Telephone, @MobilePhone, @City, @Street, @NumberStreet)";
 
