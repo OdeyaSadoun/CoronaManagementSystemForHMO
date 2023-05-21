@@ -166,7 +166,7 @@ The home screen offers three main options:
 
 For each person, you have the following options:
    - Display Details: Provides a full view of the person's details.
-![personDetails](/images/project2/personDetails.png)
+
 <br>
 
    - Add Positive Corona Test: Opens a page where you can enter the date of exposure to the virus. Submitting the form will add the positive corona test to the appropriate table in the database.
