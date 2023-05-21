@@ -82,6 +82,42 @@ namespace Covid19ManagementSystem.Controllers
             }
         }
 
+        //get specific corona vaccines by id:
+        [HttpGet("person/{id}")]
+        public ActionResult<IEnumerable<CoronaVaccine>> GetCoronaVaccinesByPersonId(int id)
+        {
+            List<CoronaVaccine> coronaVaccines = new List<CoronaVaccine>();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM CoronaVaccine WHERE PersonId = @PersonId";
+
+                connection.Open();
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PersonId", id);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        CoronaVaccine coronaVaccine = new CoronaVaccine
+                        {
+                            VaccineId = reader.GetInt32("VaccineId"),
+                            PersonId = reader.GetInt32("PersonId"),
+                            VaccinationDate = reader.GetDateTime("VaccinationDate"),
+                            Manufacturer = reader.GetString("Manufacturer")
+                        };
+
+                        coronaVaccines.Add(coronaVaccine);
+                    }
+                }
+            }
+
+            return Ok(coronaVaccines);
+        }
+        
+
         //insert new corona vaccine to database:
         [HttpPost]
         public ActionResult<CoronaVaccine> InsertCoronaVaccine(CoronaVaccine coronaVaccine)

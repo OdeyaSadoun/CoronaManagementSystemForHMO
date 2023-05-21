@@ -1,79 +1,117 @@
-﻿@model int
+﻿    @model int
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Person Details</title>
-    <link rel="stylesheet" href="~/css/personDetails.css">
-    <script>
-        function goToHomePage() {
-            window.location.href = "/Home";
-        }
-        // Send a GET request to the API 
-        fetch(`/api/Person/@Model`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('An error occurred while fetching the person details.');
-                }
-                return response.json();
-            })
-            .then(person => {
-                const personDetailsContainer = document.getElementById('personDetailsContainer');
-                personDetailsContainer.innerHTML = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Person Details</title>
+    <link rel="stylesheet" href="~/css/details.css">
+        <script>
+            function goToHomePage() {
+                window.location.href = "/Home";
+            }
+            // Send a GET request to the API 
+            fetch(`/api/Person/@Model`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('An error occurred while fetching the person details.');
+                    }
+                    return response.json();
+                })
+                .then(person => {
+                    const personDetailsContainer = document.getElementById('personDetailsContainer');
+                    personDetailsContainer.innerHTML = `
 
-                                        <div id="parentOneline">
-                                        <h4 id="oneline">Person ID:</h4>
-                                            <label id="oneline">${person.personId}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">First Name:</h4>
-                                            <label id="oneline">${person.firstName}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">Last Name:</h4>
-                                            <label id="oneline">${person.lastName}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">ID:</h4>
-                                            <label id="oneline">${person.id}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">Date of Birth:</h4>
-                                            <label id="oneline">${new Date(person.dateOfBirth).toLocaleDateString()}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">Telephone:</h4>
-                                            <label id="oneline">${person.telephone}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">Mobile Phone:</h4>
-                                            <label id="oneline">${person.mobilePhone}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">City:</h4>
-                                            <label id="oneline">${person.city}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                            <h4 id="oneline">Street:</h4>
-                                            <label id="oneline">${person.street}</label>
-                                        </div id="parentOneline">
-                                        <div id="parentOneline">
-                                             <h4 id="oneline">Number of Street:</h4>
-                                              <label id="oneline">${person.numberStreet}</label>
-                                        </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">Person ID:</p>
+                                                <label id="oneline">${person.personId}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">First Name:</p>
+                                                <label id="oneline">${person.firstName}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">Last Name:</p>
+                                                <label id="oneline">${person.lastName}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">ID:</p>
+                                                <label id="oneline">${person.id}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">Date of Birth:</p>
+                                                <label id="oneline">${new Date(person.dateOfBirth).toLocaleDateString()}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">Telephone:</p>
+                                                <label id="oneline">${person.telephone}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">Mobile Phone:</p>
+                                                <label id="oneline">${person.mobilePhone}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">City:</p>
+                                                <label id="oneline">${person.city}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                <p id="oneline">Street:</p>
+                                                <label id="oneline">${person.street}</label>
+                                            </div id="parentOneline">
+                                            <div id="parentOneline">
+                                                 <p id="oneline">Number of House:</p>
+                                                  <label id="oneline">${person.numberStreet}</label>
+                                            </div id="parentOneline">
                             
-                        `;
-            })
-            .catch(error => {
-                console.error('An error occurred while fetching the person details:', error);
-            });
-    </script>
-</head>
-<body>
-    <div id="headerPage">
-        <h1>Person Details</h1>
-        <button onclick="goToHomePage()">Go to Home</button>
-    </div>
-    <div id="personDetailsContainer"></div>
-</body>
-</html>
+                            `;
+                })
+                .catch(error => {
+                    console.error('An error occurred while fetching the person details:', error);
+                });
+
+
+            fetch('/api/CoronaVaccine/person/@Model')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('An error occurred while fetching the vaccines data.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Iterate over the received data and update the table for all the vaccines from the database
+                    data.forEach(vaccine => {
+                        var tableRow = document.createElement('tr');
+                        tableRow.innerHTML = `
+                                  <td>${new Date(vaccine.vaccinationDate).toLocaleDateString()}</td>
+                                  <td>${vaccine.manufacturer}</td>
+                                                `;
+                        document.getElementById('vaccinesTable').appendChild(tableRow);
+                    });
+                })
+                .catch(error => {
+                    console.error('An error occurred while fetching the vaccines data:', error);
+                });
+
+        </script>
+    </head>
+    <body>
+        <div id="headerPage">
+            <h1>Person Details</h1>
+            <div id="personWithCorona"></div>
+            <button onclick="goToHomePage()">Go to Home</button>
+        </div>
+        <div id="continarToDetails">
+            <div id="personDetailsContainer"></div>
+        <div>
+            <h2>Vaccines Details</h2>
+            <table id="vaccinesTable">
+
+                <tr>
+                    <th>Vaccination Date</th>
+                    <th>Manufacturer</th>
+                </tr>
+            </table>
+        </div>
+        </div>
+    
+    </body>
+    </html>
