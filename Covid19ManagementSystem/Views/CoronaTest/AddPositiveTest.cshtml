@@ -30,7 +30,11 @@
                     window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
-                    alert('An error occurred while adding the positive corona test');
+                    if (xhr.status === 404) {
+                        alert('Corona test is not found');
+                    }
+                    var errorMessage = JSON.stringify(xhr.responseJSON);
+                    alert('An error occurred while adding the positive corona test ' + errorMessage);
                 }
             });
         }

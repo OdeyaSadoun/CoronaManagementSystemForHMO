@@ -110,8 +110,6 @@ namespace Covid19ManagementSystem.Controllers
                     * Checking for a correct input of personid that really exists in the person table
                     * since it is currently a foreign key:
                     */
-                    // Check if the ID already exists in the database
-
                     string checkQuery = "SELECT COUNT(*) FROM Person WHERE PersonId = @PersonId";
 
                     using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))

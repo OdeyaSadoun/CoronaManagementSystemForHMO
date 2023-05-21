@@ -28,7 +28,12 @@
                     window.location.href = "/Home/HmoPersons";
                 },
                 error: function (xhr, status, error) {
-                    alert('An error occurred while setting the recovery date');
+                     if (xhr.status === 404) {
+                        var errorMessage = xhr.responseText;
+                        alert(errorMessage);
+                    }
+                    var errorMessage = JSON.stringify(xhr.responseJSON);
+                    alert('An error occurred while setting the recovery date ' + errorMessage);
                 }
             });
         }

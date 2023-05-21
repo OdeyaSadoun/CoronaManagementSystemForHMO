@@ -33,7 +33,8 @@
                     if (xhr.status === 404) {
                         alert('Corona vaccine is not found');
                     }
-                    alert('An error occurred while adding the corona vaccine');
+                    var errorMessage = JSON.stringify(xhr.responseJSON);
+                    alert('An error occurred while adding the corona vaccine ' + errorMessage);
                 }
             });
         }

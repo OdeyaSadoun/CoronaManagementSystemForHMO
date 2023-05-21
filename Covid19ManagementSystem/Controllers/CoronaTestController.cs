@@ -75,7 +75,7 @@ namespace Covid19ManagementSystem.Controllers
                     }
                     else
                     {
-                        return NotFound(); // Return 404 Not Found if the record with the specified ID is not found
+                        return NotFound("Corona Test is not found"); // Return 404 Not Found if the record with the specified ID is not found
                     }
                 }
             }
@@ -88,7 +88,8 @@ namespace Covid19ManagementSystem.Controllers
             // check that PositiveDate not null
             if (coronaTest.PositiveDate == null)
             {
-                return BadRequest("Positive date cannot be null.");
+                ModelState.AddModelError("PositiveDate", "Positive date cannot be null.");
+                return BadRequest(ModelState);
             }
 
             //check valid date for PositiveDate
@@ -107,12 +108,28 @@ namespace Covid19ManagementSystem.Controllers
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                connection.Open();
-           
-               
+                connection.Open();                        
                 try
                 {
-                    
+                    /*
+                   * Checking for a correct input of personid that really exists in the person table
+                   * since it is currently a foreign key:
+                   */
+                    string checkQuery = "SELECT COUNT(*) FROM Person WHERE PersonId = @PersonId";
+
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@PersonId", coronaTest.PersonId); ;
+
+                        int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                        if (count <= 0)
+                        {
+                            ModelState.AddModelError("PersonId", "The PersonId is not exists in the system.");
+                            return BadRequest(ModelState);
+                        }
+                    }
+
                     // Check if the person already had positive corona test:
                     string countQuery = "SELECT COUNT(*) FROM coronatest WHERE PersonId = @PersonId";
                     MySqlCommand countCommand = new MySqlCommand(countQuery, connection);
@@ -126,9 +143,8 @@ namespace Covid19ManagementSystem.Controllers
                          According to the premise of the exercise,
                          it must be assumed that a person who has already been sick with Corona cannot get sick again.
                          */
-
-                        // Return a response indicating the maximum limit has been reached (1 time):
-                        return BadRequest("This person was already sick with Corona, cannot be admitted again.");
+                        ModelState.AddModelError("coronaTestCountForPerson", "This person was already sick with Corona, cannot be admitted again.");
+                        return BadRequest(ModelState);
                     }
 
 
@@ -152,19 +168,6 @@ namespace Covid19ManagementSystem.Controllers
                 }
                 catch (MySqlException ex)
                 {
-                    /*
-                     * Checking for a correct input of personid that really exists in the person table
-                     * since it is currently a foreign key:
-                     */
-
-                    if (ex.Number == 1452) // MySQL error code for foreign key constraint violation
-                    {
-                        // PersonId does not exist:
-                        ModelState.AddModelError("PersonId", "Invalid PersonId");
-                        return BadRequest(ModelState);
-                    }
-
-                    // other exceptions
                     return BadRequest("An error occurred while inserting the CoronaVaccine: " + ex.Message);
                 }
 
@@ -189,10 +192,14 @@ namespace Covid19ManagementSystem.Controllers
 
                 if (testCount == 0)
                 {
-                    return NotFound(); // Return 404 Not Found if the corona test for the person is not found
+                    ModelState.AddModelError("CoronaTestCount", "Not Found a corona test for this person.");
+                    return BadRequest(ModelState);
                 }
 
-                // Retrieve the existing RecoveryDate for the current person
+                /*
+                 We will check that the current person does not already have a recovery date,
+                 because if so, it is not possible to update once more.
+                 */
                 string existingRecoveryDateQuery = "SELECT RecoveryDate FROM coronatest WHERE PersonId = @PersonId";
                 MySqlCommand existingRecoveryDateCommand = new MySqlCommand(existingRecoveryDateQuery, connection);
                 existingRecoveryDateCommand.Parameters.AddWithValue("@PersonId", personId);
@@ -206,16 +213,21 @@ namespace Covid19ManagementSystem.Controllers
 
                         if (existingRecoveryDate != null)
                         {
-                            return BadRequest("RecoveryDate cannot be updated because it is already set."); // Return 400 Bad Request if the existing RecoveryDate is not null
+                            ModelState.AddModelError("RecoveryDate", "RecoveryDate cannot be updated because it is already set.");
+                            return BadRequest(ModelState);
                         }
                     }
                     else
                     {
-                        return NotFound(); // Return 404 Not Found if the existing RecoveryDate for the person is not found
+                        return NotFound("Recovery Date is not found"); // Return 404 Not Found if the existing RecoveryDate for the person is not found
                     }
                 }
 
-                // Retrieve the PositiveDate for the person for check valid RecoveryDate
+                /*
+                 We will check what is the date of receiving the positive answer for the current person,
+                 and only if the date of recovery is after the date of receiving the positive answer - it can be updated in the system,
+                 otherwise, it is not true because it is impossible to recover before getting sick...
+                 */
                 string positiveDateQuery = "SELECT PositiveDate FROM coronatest WHERE PersonId = @PersonId";
                 MySqlCommand positiveDateCommand = new MySqlCommand(positiveDateQuery, connection);
                 positiveDateCommand.Parameters.AddWithValue("@PersonId", personId);
@@ -228,12 +240,13 @@ namespace Covid19ManagementSystem.Controllers
 
                         if (coronaTest.RecoveryDate <= positiveDate)
                         {
-                            return BadRequest("RecoveryDate must be later than the PositiveDate."); // Return 400 Bad Request if recoveryDate is not later than positiveDate
+                            ModelState.AddModelError("RecoveryDate", "RecoveryDate must be later than the PositiveDate.");
+                            return BadRequest(ModelState);
                         }
                     }
                     else
                     {
-                        return NotFound(); // Return 404 Not Found if the positiveDate for the person is not found
+                        return NotFound("Positive Corona Test is not found"); // Return 404 Not Found if the positiveDate for the person is not found
                     }
                 }
 
@@ -245,7 +258,7 @@ namespace Covid19ManagementSystem.Controllers
 
                 updateCommand.ExecuteNonQuery();
 
-                return NoContent(); // Return 204 No Content to indicate successful update
+                return NoContent(); // successful update
             }
         }
 
@@ -261,7 +274,7 @@ namespace Covid19ManagementSystem.Controllers
             {
                 connection.Open();
 
-                // Query to calculate the number of active patients per day within the date range
+                // calculate the number of active patients per day within the date range
                 string query = "SELECT DATE(PositiveDate) AS Date, COUNT(*) AS ActivePatients " +
                                "FROM coronatest " +
                                "WHERE PositiveDate >= @StartDate AND PositiveDate <= @EndDate " +
@@ -288,7 +301,7 @@ namespace Covid19ManagementSystem.Controllers
                     }
                 }
 
-                // Fill in missing dates with 0 active patients
+                // Fill in missing dates with 0 active patients - we want tha all 30 days
                 DateTime currentDate = startDate;
                 while (currentDate <= DateTime.Now.Date)
                 {
@@ -299,7 +312,7 @@ namespace Covid19ManagementSystem.Controllers
                     currentDate = currentDate.AddDays(1);
                 }
 
-                // Sort the statistics by date
+                // Sort the statistics by date:
                 statistics = statistics.OrderBy(s => s.Date).ToList();
             }
 
@@ -314,7 +327,7 @@ namespace Covid19ManagementSystem.Controllers
             {
                 connection.Open();
 
-                // Query the database to count the number of persons who did not receive any vaccine
+                // count the number of persons who did not receive any vaccine
                 string query = "SELECT COUNT(*) FROM Person " +
                                "WHERE PersonId NOT IN (SELECT DISTINCT PersonId FROM CoronaVaccine)";
 
