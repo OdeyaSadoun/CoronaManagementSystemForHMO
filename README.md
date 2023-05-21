@@ -14,24 +14,40 @@ The "Twitter Towers" project is written in the C# language. To use the project, 
 
 ## Installation
 To set up the project, follow these steps:
-1. Clone the Git repository: ![URL](`https://github.com/OdeyaSadoun/Hadasim3HomeEX`)
+1. Clone the Git repository: https://github.com/OdeyaSadoun/Hadasim3HomeEX
 2. Open the project in Visual Studio or any other compatible C# development environment.
 
 ## Project Run
 The project follows a menu-driven approach. Upon starting the program, the user is presented with a menu to choose between building a rectangular or triangular tower.
+<br>
+<br>
 ![Menu](/images/project1/mainMenu.png)
+<br>
 
 The menu will continue to display until the user selects option 3 to exit the system:
+<br>
+<br>
 ![Exit](/images/project1/exit.png)
+<br>
 
 ### Rectangular Tower
 
-
 For a rectangular tower:
+
 1. Enter the height and width of the tower.
 2. The program performs tests based on the user's input.
 3. If the tower is a square or a rectangle with a difference between the lengths of its sides greater than 5, the area of the rectangle will be printed.
 4. Otherwise, the perimeter of the rectangle will be printed.
+
+<br>
+![rectArea](/images/project1/rectArea.png)
+<br>
+
+<br>
+![rectPerm](/images/project1/rectPerm.png)
+<br>
+
+
 
 ### Triangular Tower
 
